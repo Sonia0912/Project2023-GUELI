@@ -38,8 +38,11 @@ public class BodyNode implements Node{
         }
 
         //check semantics in the exp body
-        errors.addAll(exp.checkSemantics(ST, nesting)) ;
-
+        if(exp != null){
+            errors.addAll(exp.checkSemantics(ST, nesting)) ;
+        }
+        System.out.println("-- TableSymbol of Body Node --");
+        ST.printST();
         //clean the scope, we are leaving a let scope
         ST.remove();
 
@@ -75,7 +78,9 @@ public class BodyNode implements Node{
             declstr += d.toPrint(s+"\t");
         for (Node st : stm)
             statementstr += st.toPrint(s+"\t");
-        return s+"Body \n" + declstr + statementstr + "\n" + exp.toPrint(s+"\t") ;
+        if(exp != null)
+            return s+"Body \n" + declstr + statementstr + "\n" + exp.toPrint(s+"\t") ;
+        return s+"Body \n" + declstr + statementstr + "\n";
     }
 
 }

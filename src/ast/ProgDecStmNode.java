@@ -4,6 +4,7 @@ import evaluator.SimpLanlib;
 import semanticanalysis.STentry;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
+import semanticanalysis.VoidType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,9 +38,11 @@ public class ProgDecStmNode implements Node {
             errors.addAll(s.checkSemantics(ST, nesting)) ;
         }
 
-        //check semantics in the exp body
-        errors.addAll(exp.checkSemantics(ST, nesting)) ;
+        if(exp != null)//check semantics in the exp body
+            errors.addAll(exp.checkSemantics(ST, nesting));
 
+        System.out.println("-- TableSymbol of ProDecStm --");
+        ST.printST();
         //clean the scope, we are leaving a let scope
         ST.remove();
 
@@ -50,7 +53,9 @@ public class ProgDecStmNode implements Node {
     public Type typeCheck () {
         for (Node s: stm)
             s.typeCheck();
-        return exp.typeCheck();
+        if(exp != null)
+            return exp.typeCheck();
+        return new VoidType();
     }
 
     // TODO
@@ -75,7 +80,10 @@ public class ProgDecStmNode implements Node {
             declstr += d.toPrint(s+"\t");
         for (Node st : stm)
             statementstr += st.toPrint(s+"\t");
-        return s+"ProgDecStm \n" + declstr + statementstr + "\n" + exp.toPrint(s+"\t") ;
+        if (exp != null)
+            return s+"ProgDecStm \n" + declstr + statementstr + "\n" + exp.toPrint(s+"\t") ;
+
+        return s+"ProgDecStm \n" + declstr + statementstr + "\n";
     }
 
 }

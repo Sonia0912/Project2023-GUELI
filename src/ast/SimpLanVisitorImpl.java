@@ -24,17 +24,20 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 		ArrayList<Node> declarations = new ArrayList<Node>();
 		ArrayList<Node> statements = new ArrayList<Node>();
 
-		for(DecContext dc : ctx.dec()) {
+		for(SimpLanParser.DecContext dc : ctx.dec()) {
 			declarations.add(visit(dc));
 		}
 
-		for(StmContext st : ctx.stm()) {
+		for(SimpLanParser.StmContext st : ctx.stm()) {
 			statements.add(visit(st));
 		}
 
-		Node exp = visit(ctx.exp());
+		if(ctx.exp() != null){
+			Node exp = visit(ctx.exp());
+			return new ProgDecStmNode(declarations, statements, exp);
+		}
 
-		return new ProgDecStmNode(declarations, statements, exp);
+		return new ProgDecStmNode(declarations, statements, null);
 
 	}
 
@@ -70,9 +73,13 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 			statements.add(visit(st));
 		}
 
-		Node exp = visit(ctx.exp());
+		if(ctx.exp() != null){
+			Node exp = visit(ctx.exp());
+			return new BodyNode(declarations, statements, exp);
+		}
 
-		return new BodyNode(declarations, statements, exp);
+
+		return new BodyNode(declarations, statements, null);
 	}
 
 	@Override
@@ -86,71 +93,133 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 
 	@Override
 	public Node visitAsg(SimpLanParser.AsgContext ctx) {
-		return null;
+		return new AsgNode(ctx.ID().getText(), visit(ctx.exp()) );
 	}
 
 	@Override
 	public Node visitInvFun(SimpLanParser.InvFunContext ctx) {
-		return null;
+		ArrayList<Node> _param = new ArrayList<Node>() ;
+
+		for (ExpContext vc : ctx.exp())
+			_param.add(visit(vc));
+
+		return new CallNode(ctx.ID().getText(),_param);
 	}
 
 	@Override
 	public Node visitIfStm(SimpLanParser.IfStmContext ctx) {
-		return null;
+
+		Node condExp = visit (ctx.cond);
+		if(ctx.thenBranch != null && ctx.elseBranch != null){
+			Node thenExp = visit (ctx.thenBranch);
+			Node elseExp = visit (ctx.elseBranch);
+			return new IfNode(condExp, thenExp, elseExp);
+		}else if(ctx.thenBranch != null && ctx.elseBranch == null ){
+			Node thenExp = visit (ctx.thenBranch);
+			return new IfNode(condExp, thenExp, null);
+		}else if(ctx.thenBranch == null && ctx.elseBranch != null ){
+			Node elseExp = visit (ctx.elseBranch);
+			return new IfNode(condExp, null, elseExp);
+		}else return new IfNode(condExp, null, null);
+
+
 	}
 
 	@Override
 	public Node visitVarExp(SimpLanParser.VarExpContext ctx) {
-		return null;
+		return new IdNode(ctx.ID().getText());
 	}
 
 	@Override
-	public Node visitPlusEqExp(SimpLanParser.PlusEqExpContext ctx) {
-		return null;
+	public Node visitEqExp(SimpLanParser.EqExpContext ctx) {
+		return new EqualNode(visit(ctx.left),visit(ctx.right));
 	}
 
 	@Override
-	public Node visitAndOrExp(SimpLanParser.AndOrExpContext ctx) {
-		return null;
+	public Node visitPlusExp(SimpLanParser.PlusExpContext ctx) {
+		return new PlusNode(visit(ctx.left),visit(ctx.right));
+	}
+
+	@Override
+	public Node visitAndExp(SimpLanParser.AndExpContext ctx) {
+		return new AndNode(visit(ctx.left),visit(ctx.right));
+	}
+	@Override
+	public Node visitOrExp(SimpLanParser.OrExpContext ctx) {
+		return new OrNode(visit(ctx.left),visit(ctx.right));
 	}
 
 	@Override
 	public Node visitIntVal(SimpLanParser.IntValContext ctx) {
-		return null;
+		return new IntNode(Integer.parseInt(ctx.INTEGER().getText()));
 	}
 
 	@Override
 	public Node visitCondExp(SimpLanParser.CondExpContext ctx) {
-		return null;
+		if(ctx.magg != null)
+			return new MaggNode(visit(ctx.left),visit(ctx.right));
+		else if(ctx.min != null)
+			return new MinNode(visit(ctx.left),visit(ctx.right));
+		else if (ctx.maggeq != null)
+			return new MaggEqNode(visit(ctx.left),visit(ctx.right));
+		else if (ctx.mineq != null)
+			return new MinEqNode(visit(ctx.left),visit(ctx.right));
+		else return new EqualNode(visit(ctx.left),visit(ctx.right));
+
 	}
 
 	@Override
 	public Node visitIfExp(SimpLanParser.IfExpContext ctx) {
-		return null;
+		Node condExp = visit (ctx.cond);
+		Node thenExp = visit (ctx.thenBranch);
+		Node elseExp = visit (ctx.elseBranch);
+
+		return new IfNode(condExp, thenExp, elseExp);
 	}
 
 	@Override
-	public Node visitMolDivExp(SimpLanParser.MolDivExpContext ctx) {
-		return null;
+	public Node visitDivExp(SimpLanParser.DivExpContext ctx) {
+		return new DivNode(visit(ctx.left),visit(ctx.right));
+	}
+
+	@Override
+	public Node visitMolExp(SimpLanParser.MolExpContext ctx) {
+		return new MultNode(visit(ctx.left),visit(ctx.right));
 	}
 
 	@Override
 	public Node visitNegExp(SimpLanParser.NegExpContext ctx) {
-		return null;
+		return new NegNode(visit(ctx.exp()));
 	}
 
 	@Override
 	public Node visitBoolVal(SimpLanParser.BoolValContext ctx) {
-		return null;
+		return new BoolNode(Boolean.parseBoolean(ctx.getText()));
 	}
 
 	@Override
 	public Node visitPareExp(SimpLanParser.PareExpContext ctx) {
-		return null;
+		return visit (ctx.exp());
 	}
 
 	@Override
 	public Node visitFunExp(SimpLanParser.FunExpContext ctx) {
-		return null;
+
+		//this corresponds to a function invocation
+		//declare the result
+
+		Node res;
+		//get the invocation arguments
+		ArrayList<Node> args = new ArrayList<Node>();
+		for (ExpContext exp : ctx.exp())
+			args.add(visit(exp));
+		// this is ad-hoc for this project...
+		if(ctx.ID().getText().equals("print"))
+			res = new PrintNode(args.get(0));
+		else
+			//instantiate the invocation
+			res = new CallNode(ctx.ID().getText(), args);
+
+		return res;
 	}
 }

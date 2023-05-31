@@ -8,13 +8,9 @@ import java.util.List;
 
 import org.antlr.v4.runtime.*;
 
-import parser.SimpLanLexer;
-import parser.SimpLanParser;
-
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
-import parser.SVMLexer;
-import parser.SVMParser;
+import parser.*;
 import ast.SimpLanVisitorImpl;
 import evaluator.ExecuteVM;
 import ast.ErrorType;
@@ -46,7 +42,8 @@ public class Test {
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		 */
 
-		String fileName = "prova.simplan";
+/*
+
 
 		CharStream input = CharStreams.fromFileName(fileName);
 		SimpLanLexer lexer = new SimpLanLexer(input);
@@ -64,9 +61,14 @@ public class Test {
 		for (Token a: errorList) {
 			System.out.println("Invalid char "+  a.getText() + "  at line " + a.getLine());
 		}
+*/
+		String fileName = "prova.simplan";
+		FileInputStream is = new FileInputStream(fileName);
+		ANTLRInputStream input = new ANTLRInputStream(is);
+		SimpLanLexer lexer = new SimpLanLexer(input);
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-		SimpLanParser parser = getParser(fileName);
-
+		SimpLanParser parser = new SimpLanParser(tokens);
 		SimpLanVisitorImpl visitor = new SimpLanVisitorImpl();
 		Node ast = visitor.visit(parser.prog()); //generazione AST 
 			
@@ -90,7 +92,7 @@ public class Test {
 				else 
 					System.out.println(type.toPrint("Type checking ok! Type of the program is: "));
 
-
+/*
 				// CODE GENERATION  prova.SimpLan.asm
 				String code=ast.codeGeneration(); 
 				BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm")); 
@@ -115,6 +117,7 @@ public class Test {
 				System.out.println("Starting Virtual Machine...");
 				ExecuteVM vm = new ExecuteVM(visitorSVM.code);
 				vm.cpu();
+				*/
 				}
 		}
 

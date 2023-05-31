@@ -1,23 +1,12 @@
 package mainPackage;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.util.ArrayList;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import parser.SimpLanLexer;
-import parser.SimpLanParser;
-
-import semanticanalysis.SemanticError;
-import semanticanalysis.SymbolTable;
 import parser.SVMLexer;
 import parser.SVMParser;
-import ast.SimpLanVisitorImpl;
 import evaluator.ExecuteVM;
-import ast.ErrorType;
-import ast.Node;
 import ast.SVMVisitorImpl;
 
 public class TestAssembler {

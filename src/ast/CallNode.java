@@ -25,7 +25,7 @@ public class CallNode implements Node {
 				for (Node par : parameters)
 					 errors.addAll(par.checkSemantics(ST, nesting));
 		} else {
-			 	errors.add(new SemanticError("Id " + id + " not declared")) ;
+			 	errors.add(new SemanticError("Fun ID " + id + " not declared")) ;
 		}
 		return errors;
   }

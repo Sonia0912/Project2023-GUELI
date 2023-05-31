@@ -29,7 +29,7 @@ public class AsgNode implements Node{
             errors.add(new SemanticError("Var id " + id + " never declared"));
         else
             // Controlliamo che il tipo sia corretto
-            if (!ST.lookup(id).gettype().equals(exp.typeCheck()))
+            if (!ST.lookup(id).gettype().getClass().equals(exp.typeCheck().getClass()))
                 errors.add(new SemanticError("Var id " + id + " type doesn't correspond to exp type"));
 
         return errors ;

@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from /Users/gian/ANTLR/SimpLan-master/src/parser/SimpLan.g4 by ANTLR 4.12.0
 package parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -124,42 +124,6 @@ public interface SimpLanListener extends ParseTreeListener {
 	 */
 	void exitIfStm(SimpLanParser.IfStmContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code varExp}
-	 * labeled alternative in {@link SimpLanParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterVarExp(SimpLanParser.VarExpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code varExp}
-	 * labeled alternative in {@link SimpLanParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitVarExp(SimpLanParser.VarExpContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code plusEqExp}
-	 * labeled alternative in {@link SimpLanParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterPlusEqExp(SimpLanParser.PlusEqExpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code plusEqExp}
-	 * labeled alternative in {@link SimpLanParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitPlusEqExp(SimpLanParser.PlusEqExpContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code andOrExp}
-	 * labeled alternative in {@link SimpLanParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterAndOrExp(SimpLanParser.AndOrExpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code andOrExp}
-	 * labeled alternative in {@link SimpLanParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitAndOrExp(SimpLanParser.AndOrExpContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code intVal}
 	 * labeled alternative in {@link SimpLanParser#exp}.
 	 * @param ctx the parse tree
@@ -172,53 +136,41 @@ public interface SimpLanListener extends ParseTreeListener {
 	 */
 	void exitIntVal(SimpLanParser.IntValContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code condExp}
+	 * Enter a parse tree produced by the {@code andExp}
 	 * labeled alternative in {@link SimpLanParser#exp}.
 	 * @param ctx the parse tree
 	 */
-	void enterCondExp(SimpLanParser.CondExpContext ctx);
+	void enterAndExp(SimpLanParser.AndExpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code condExp}
+	 * Exit a parse tree produced by the {@code andExp}
 	 * labeled alternative in {@link SimpLanParser#exp}.
 	 * @param ctx the parse tree
 	 */
-	void exitCondExp(SimpLanParser.CondExpContext ctx);
+	void exitAndExp(SimpLanParser.AndExpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ifExp}
+	 * Enter a parse tree produced by the {@code plusExp}
 	 * labeled alternative in {@link SimpLanParser#exp}.
 	 * @param ctx the parse tree
 	 */
-	void enterIfExp(SimpLanParser.IfExpContext ctx);
+	void enterPlusExp(SimpLanParser.PlusExpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ifExp}
+	 * Exit a parse tree produced by the {@code plusExp}
 	 * labeled alternative in {@link SimpLanParser#exp}.
 	 * @param ctx the parse tree
 	 */
-	void exitIfExp(SimpLanParser.IfExpContext ctx);
+	void exitPlusExp(SimpLanParser.PlusExpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code molDivExp}
+	 * Enter a parse tree produced by the {@code orExp}
 	 * labeled alternative in {@link SimpLanParser#exp}.
 	 * @param ctx the parse tree
 	 */
-	void enterMolDivExp(SimpLanParser.MolDivExpContext ctx);
+	void enterOrExp(SimpLanParser.OrExpContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code molDivExp}
+	 * Exit a parse tree produced by the {@code orExp}
 	 * labeled alternative in {@link SimpLanParser#exp}.
 	 * @param ctx the parse tree
 	 */
-	void exitMolDivExp(SimpLanParser.MolDivExpContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code negExp}
-	 * labeled alternative in {@link SimpLanParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterNegExp(SimpLanParser.NegExpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code negExp}
-	 * labeled alternative in {@link SimpLanParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitNegExp(SimpLanParser.NegExpContext ctx);
+	void exitOrExp(SimpLanParser.OrExpContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code boolVal}
 	 * labeled alternative in {@link SimpLanParser#exp}.
@@ -255,4 +207,88 @@ public interface SimpLanListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunExp(SimpLanParser.FunExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code divExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterDivExp(SimpLanParser.DivExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code divExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitDivExp(SimpLanParser.DivExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code varExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarExp(SimpLanParser.VarExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code varExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarExp(SimpLanParser.VarExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code eqExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqExp(SimpLanParser.EqExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code eqExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqExp(SimpLanParser.EqExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code condExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondExp(SimpLanParser.CondExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code condExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondExp(SimpLanParser.CondExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ifExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfExp(SimpLanParser.IfExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ifExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfExp(SimpLanParser.IfExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code negExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegExp(SimpLanParser.NegExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code negExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegExp(SimpLanParser.NegExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code molExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterMolExp(SimpLanParser.MolExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code molExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitMolExp(SimpLanParser.MolExpContext ctx);
 }

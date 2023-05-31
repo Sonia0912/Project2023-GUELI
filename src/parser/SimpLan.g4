@@ -30,18 +30,24 @@ type   : 'int'
 
 stm   : ID '=' exp ';'                                                     #asg
        | ID '(' (exp (',' exp)* )? ')' ';'                                 #invFun
-       | 'if' '(' exp ')' '{' (stm)* '}' ('else' '{' (stm)* '}')?          #ifStm
+       | 'if' '(' cond=exp ')' '{' (thenBranch=stm)* '}'
+       ('else' '{' (elseBranch=stm)* '}')?                                 #ifStm
 	   ;
 
 exp    :  INTEGER                                                          #intVal
           | ('true' | 'false')                                             #boolVal
        | ID                                                                #varExp
        | '!' exp                                                           #negExp
-       | exp ('*' | '/') exp                                               #molDivExp
-       | exp ('+' | '=') exp                                               #plusEqExp
-       | exp ('>' | '<' | '>=' | '<=' | '==') exp                          #condExp
-       | exp ('&&' | '||') exp                                             #andOrExp
-       | 'if' '(' exp ')' '{' exp '}' 'else' '{' exp '}'                   #ifExp
+       | left=exp (molt='*') right=exp                                     #molExp
+       | left=exp (div='/') right=exp                                      #divExp
+       | left=exp (plus='+') right=exp                                     #plusExp
+       | left=exp (equal='=') right=exp                                    #eqExp
+       | left=exp (magg='>' | min='<' | maggeq='>='
+       | mineq='<=' | eq='==') right=exp                                   #condExp
+       | left=exp (and='&&') right=exp                                     #andExp
+       | left=exp (or='||') right=exp                                      #orExp
+       | 'if' '('cond=exp ')' '{' thenBranch=exp '}'
+       'else' '{' elseBranch=exp '}'                                       #ifExp
        | '(' exp ')'                                                       #pareExp
        | ID '(' (exp (',' exp)* )? ')'                                     #funExp
        ;

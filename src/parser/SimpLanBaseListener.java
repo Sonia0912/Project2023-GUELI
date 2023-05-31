@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from /Users/gian/ANTLR/SimpLan-master/src/parser/SimpLan.g4 by ANTLR 4.12.0
 package parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -137,42 +137,6 @@ public class SimpLanBaseListener implements SimpLanListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVarExp(SimpLanParser.VarExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVarExp(SimpLanParser.VarExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPlusEqExp(SimpLanParser.PlusEqExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPlusEqExp(SimpLanParser.PlusEqExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAndOrExp(SimpLanParser.AndOrExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAndOrExp(SimpLanParser.AndOrExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterIntVal(SimpLanParser.IntValContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -185,49 +149,37 @@ public class SimpLanBaseListener implements SimpLanListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCondExp(SimpLanParser.CondExpContext ctx) { }
+	@Override public void enterAndExp(SimpLanParser.AndExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCondExp(SimpLanParser.CondExpContext ctx) { }
+	@Override public void exitAndExp(SimpLanParser.AndExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfExp(SimpLanParser.IfExpContext ctx) { }
+	@Override public void enterPlusExp(SimpLanParser.PlusExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfExp(SimpLanParser.IfExpContext ctx) { }
+	@Override public void exitPlusExp(SimpLanParser.PlusExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMolDivExp(SimpLanParser.MolDivExpContext ctx) { }
+	@Override public void enterOrExp(SimpLanParser.OrExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMolDivExp(SimpLanParser.MolDivExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNegExp(SimpLanParser.NegExpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNegExp(SimpLanParser.NegExpContext ctx) { }
+	@Override public void exitOrExp(SimpLanParser.OrExpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -264,6 +216,90 @@ public class SimpLanBaseListener implements SimpLanListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunExp(SimpLanParser.FunExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDivExp(SimpLanParser.DivExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDivExp(SimpLanParser.DivExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarExp(SimpLanParser.VarExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarExp(SimpLanParser.VarExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEqExp(SimpLanParser.EqExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEqExp(SimpLanParser.EqExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCondExp(SimpLanParser.CondExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCondExp(SimpLanParser.CondExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfExp(SimpLanParser.IfExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfExp(SimpLanParser.IfExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNegExp(SimpLanParser.NegExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNegExp(SimpLanParser.NegExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMolExp(SimpLanParser.MolExpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMolExp(SimpLanParser.MolExpContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

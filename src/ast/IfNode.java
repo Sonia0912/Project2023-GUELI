@@ -22,16 +22,20 @@ public class IfNode implements Node {
 	  ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 	  
 	  errors.addAll(guard.checkSemantics(ST, _nesting));
-	  errors.addAll(thenbranch.checkSemantics(ST, _nesting));
-	  errors.addAll(elsebranch.checkSemantics(ST, _nesting));
+	  if(thenbranch != null)
+		  errors.addAll(thenbranch.checkSemantics(ST, _nesting));
+	  if (elsebranch != null)
+		  errors.addAll(elsebranch.checkSemantics(ST, _nesting));
 	  
 	  return errors;
   }
   
 	public Type typeCheck() {
 		if (guard.typeCheck() instanceof BoolType) {
+			//TODO FARE I VARI CHECK
 			Type thenexp = thenbranch.typeCheck() ;
 			Type elseexp = elsebranch.typeCheck() ;
+
 			if (thenexp.getClass().equals(elseexp.getClass()))
         		return thenexp;
 			else {

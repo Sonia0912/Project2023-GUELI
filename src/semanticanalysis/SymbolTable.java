@@ -87,5 +87,14 @@ public class SymbolTable {
 		offs = offs + 1 ;
 		offset.add(offs) ;	
 	}
+	public void printST() {
+		System.out.println("******");
+
+		for(int i = 0; i < symbol_table.size(); i++) {
+			symbol_table.get(i).forEach((key, value) -> System.out.println(key + ": " + value.gettype().getClass() + ", " + value.getnesting()));
+		}
+
+		System.out.println("******");
+	}
 
 }
