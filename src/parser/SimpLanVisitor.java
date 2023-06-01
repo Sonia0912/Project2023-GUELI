@@ -1,4 +1,4 @@
-// Generated from /Users/gian/ANTLR/SimpLan-master/src/parser/SimpLan.g4 by ANTLR 4.12.0
+// Generated from java-escape by ANTLR 4.11.1
 package parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -85,6 +85,13 @@ public interface SimpLanVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIntVal(SimpLanParser.IntValContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code minusExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMinusExp(SimpLanParser.MinusExpContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code andExp}
 	 * labeled alternative in {@link SimpLanParser#exp}.

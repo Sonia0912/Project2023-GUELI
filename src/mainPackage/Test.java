@@ -17,6 +17,8 @@ import ast.ErrorType;
 import ast.Node;
 import ast.SVMVisitorImpl;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
+
 public class Test {
 
 	private static SimpLanParser getParser(String fileName) {
@@ -40,7 +42,7 @@ public class Test {
 		CharStream input = CharStreams.fromFileName(fileName);
 		SimpLanLexer lexer = new SimpLanLexer(input);
 
-		// Esercizio 1
+		// Stampiamo in un file di testo gli errori lessicali
 		List<Token> errorList = new ArrayList<>();
 		Token token = lexer.nextToken();
 		while ( token.getType() != lexer.EOF){
@@ -50,11 +52,17 @@ public class Test {
 			token = lexer.nextToken();
 		}
 
-		for (Token a: errorList) {
-			System.out.println("Invalid char "+  a.getText() + "  at line " + a.getLine());
-		}
-		lexer.reset();
+		FileWriter myWriter = new FileWriter("lexicalerrors.txt");
+		String text = "";
 
+		for (Token a: errorList) {
+			System.out.println("Invalid char "+  a.getText() + " at line " + a.getLine());
+			text = "Invalid char "+  a.getText() + " at line " + a.getLine() + "\n";
+			myWriter.write(text);
+		}
+		myWriter.close();
+
+		lexer.reset();
 
 		//SIMPLE CHECK FOR LEXER ERRORS
 		if (errorList.size() > 0){

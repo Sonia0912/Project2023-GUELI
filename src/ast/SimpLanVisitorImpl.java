@@ -28,8 +28,10 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 			declarations.add(visit(dc));
 		}
 
-		for(SimpLanParser.StmContext st : ctx.stm()) {
-			statements.add(visit(st));
+		if(ctx.stm() != null) {
+			for(SimpLanParser.StmContext st : ctx.stm()) {
+				statements.add(visit(st));
+			}
 		}
 
 		if(ctx.exp() != null){
@@ -54,11 +56,12 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 		for (ParamContext vc : ctx.param())
 			_param.add( new ParNode(vc.ID().getText(), (Type) visit( vc.type() )) );
 
-		//get the exp body
+		if(!ctx.body().getText().equals("")) {
+			Node body = visit(ctx.body());
+			return new FunNode(ctx.ID().getText(), (Type) visit(ctx.type()), _param, body);
+		}
 
-		Node body = visit(ctx.body());
-
-		return new FunNode(ctx.ID().getText(), (Type) visit(ctx.type()), _param, body);
+		return new FunNode(ctx.ID().getText(), (Type) visit(ctx.type()), _param, null);
 	}
 
 	@Override
@@ -114,15 +117,15 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 
 		Node condExp = visit (ctx.cond);
 		if(ctx.thenBranch != null && ctx.elseBranch != null){
-			Node thenExp = visit (ctx.thenBranch);
-			Node elseExp = visit (ctx.elseBranch);
-			return new IfNode(condExp, thenExp, elseExp);
+			Node thenStm = visit (ctx.thenBranch);
+			Node elseStm = visit (ctx.elseBranch);
+			return new IfNode(condExp, thenStm, elseStm);
 		}else if(ctx.thenBranch != null && ctx.elseBranch == null ){
-			Node thenExp = visit (ctx.thenBranch);
-			return new IfNode(condExp, thenExp, null);
+			Node thenStm = visit (ctx.thenBranch);
+			return new IfNode(condExp, thenStm, null);
 		}else if(ctx.thenBranch == null && ctx.elseBranch != null ){
-			Node elseExp = visit (ctx.elseBranch);
-			return new IfNode(condExp, null, elseExp);
+			Node elseStm = visit (ctx.elseBranch);
+			return new IfNode(condExp, null, elseStm);
 		}else return new IfNode(condExp, null, null);
 
 
@@ -144,9 +147,15 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 	}
 
 	@Override
+	public Node visitMinusExp(SimpLanParser.MinusExpContext ctx) {
+		return new MinusNode(visit(ctx.left),visit(ctx.right));
+	}
+
+	@Override
 	public Node visitAndExp(SimpLanParser.AndExpContext ctx) {
 		return new AndNode(visit(ctx.left),visit(ctx.right));
 	}
+
 	@Override
 	public Node visitOrExp(SimpLanParser.OrExpContext ctx) {
 		return new OrNode(visit(ctx.left),visit(ctx.right));

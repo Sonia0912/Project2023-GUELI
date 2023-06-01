@@ -2,12 +2,7 @@ grammar SimpLan;
 
 @lexer::members {
    //there is a much better way to do this, check the ANTLR guide
-   //public int lexicalErrors=0;
-    @Override
-       public void recover(RecognitionException ex)
-       {
-    throw new ParsingException(ex.getMessage(),getCharPositionInLine(),ex.getOffendingToken().getText());
-           }
+   public int lexicalErrors=0;
 }
 
 /*------------------------------------------------------------------
@@ -46,6 +41,7 @@ exp    :  INTEGER                                                          #intV
        | left=exp (molt='*') right=exp                                     #molExp
        | left=exp (div='/') right=exp                                      #divExp
        | left=exp (plus='+') right=exp                                     #plusExp
+       | left=exp (minus='-') right=exp                                    #minusExp
        | left=exp (equal='=') right=exp                                    #eqExp
        | left=exp (magg='>' | min='<' | maggeq='>='
        | mineq='<=' | eq='==') right=exp                                   #condExp

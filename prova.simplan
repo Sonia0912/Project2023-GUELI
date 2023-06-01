@@ -1,20 +1,39 @@
-int x ;
-void f(int n, int n){
-
-              if (n == 0) {1 }
-              else { x = x * n ; f(n+1) ; }
-
+int x;
+int f(int n) {
 
 }
+x = f(1);
+
+/*
+int x ;
+bool f(int n){
+    if (n == 0) { x = 0; }
+    else { x = f(2); }
+}
+x = 19;
+f(5)
+*/
+
+//int x; x = 2-3;
+
+/*
+int a; int b; int c ; c = 2 ;
+     if (c > 1) { b = c ; } else { a = b ; }
+*/
+
+/*
+int x ; int a;
 void f(int n){
 
-              if (n == 0) {1 }
-              else { x = x * n ; f(n+1) ; }
+              if (n == 0) { x = 0;}
+              else { x = x * n ; }
 
 
 }
-x = 1;
-f(10)
+x = a + 1;
+f(1)
+*/
+
 /*void h(int n){
 int x ; int y ;
      if (n==0){ x = n+1 ;} else { h(n+1) ; x = n ; y = x ;}

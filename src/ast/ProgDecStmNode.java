@@ -51,8 +51,10 @@ public class ProgDecStmNode implements Node {
     }
 
     public Type typeCheck () {
-        for (Node s: stm)
-            s.typeCheck();
+        if(stm != null) {
+            for (Node s: stm)
+                s.typeCheck();
+        }
         if(exp != null)
             return exp.typeCheck();
         return new VoidType();

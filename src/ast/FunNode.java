@@ -47,20 +47,25 @@ public class FunNode implements Node {
 			type = new ArrowType(partypes, returntype) ;
 			
 			ST.increaseoffset() ; // aumentiamo di 1 l'offset per far posto al return value
-			
-			errors.addAll(body.checkSemantics(ST, nesting+1));
+
+			// aggiungiamo la funzione anche prima di controllare il body per permettere la ricorsione
+			flabel = SimpLanlib.freshFunLabel() ;
+			ST.insert(id, type, nesting, flabel) ;
+
+			if(body != null)
+				errors.addAll(body.checkSemantics(ST, nesting+1));
+
 			ST.remove();
 			
 			flabel = SimpLanlib.freshFunLabel() ;
-			
 			ST.insert(id, type, nesting, flabel) ;
 		}
 		return errors ; // problemi con la generazione di codice!
 	}
   
  	public Type typeCheck () {
-		if ( (body.typeCheck()).getClass().equals(returntype.getClass())) 
-    			return null ;
+		if (body != null && body.typeCheck().getClass().equals(returntype.getClass()))
+    			return returntype ;
 		else {
 			return new ErrorType() ;
 		}  
@@ -93,10 +98,17 @@ public class FunNode implements Node {
 		for (Node par:parlist){
 		  parlstr += par.toPrint(s);
 		}
-	    return s+"Fun:" + id +"\n"
-			   +parlstr
-		   	   + "\n" 
-	           +body.toPrint(s+"  ") ; 
+		if(body != null) {
+			return s+"Fun:" + id +"\n"
+					+parlstr
+					+ "\n"
+					+body.toPrint(s+"  ") ;
+		} else {
+			return s+"Fun:" + id +"\n"
+					+parlstr
+					+ "\n"
+					+" (no body) " ;
+		}
 	  }
 	  
 }  

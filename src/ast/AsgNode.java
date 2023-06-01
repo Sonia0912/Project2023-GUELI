@@ -43,7 +43,7 @@ public class AsgNode implements Node{
 
     @Override
     public Type typeCheck() {
-        return null;
+        return exp.typeCheck();
     }
 
     @Override

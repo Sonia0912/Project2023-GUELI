@@ -1,4 +1,4 @@
-// Generated from /Users/gian/ANTLR/SimpLan-master/src/parser/SimpLan.g4 by ANTLR 4.12.0
+// Generated from java-escape by ANTLR 4.11.1
 package parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -135,6 +135,18 @@ public interface SimpLanListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIntVal(SimpLanParser.IntValContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code minusExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void enterMinusExp(SimpLanParser.MinusExpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code minusExp}
+	 * labeled alternative in {@link SimpLanParser#exp}.
+	 * @param ctx the parse tree
+	 */
+	void exitMinusExp(SimpLanParser.MinusExpContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code andExp}
 	 * labeled alternative in {@link SimpLanParser#exp}.
