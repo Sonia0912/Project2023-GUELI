@@ -1,8 +1,8 @@
 int x;
-int f(int n) {
-
+int f() {
+    3
 }
-x = f(1);
+f();
 
 /*
 int x ;

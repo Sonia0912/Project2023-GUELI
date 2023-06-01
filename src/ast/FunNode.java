@@ -64,11 +64,16 @@ public class FunNode implements Node {
 	}
   
  	public Type typeCheck () {
-		if (body != null && body.typeCheck().getClass().equals(returntype.getClass()))
-    			return returntype ;
-		else {
+
+		if(body == null && returntype.getClass().equals(ast.VoidType.class)) {
+			return new VoidType() ;
+		} else if(body != null && body.typeCheck().getClass().equals(returntype.getClass())) {
+			return returntype ;
+		} else {
+			System.out.println("Type Error: Function return type doesn't match statement/expression type") ;
 			return new ErrorType() ;
-		}  
+		}
+
   	}
   
   public String codeGeneration() {

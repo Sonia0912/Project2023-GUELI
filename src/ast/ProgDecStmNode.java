@@ -4,7 +4,6 @@ import evaluator.SimpLanlib;
 import semanticanalysis.STentry;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
-import semanticanalysis.VoidType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,12 +50,22 @@ public class ProgDecStmNode implements Node {
     }
 
     public Type typeCheck () {
-        if(stm != null) {
-            for (Node s: stm)
-                s.typeCheck();
+        // Controlliamo che le dichiarazioni non abbiano errori
+        for (Node d: dec) {
+            if (d.typeCheck() instanceof ErrorType)
+                return new ErrorType();
         }
+        // Controlliamo che gli statement non abbiano errori
+        if(stm != null) {
+            for (Node s: stm) {
+                if (s.typeCheck() instanceof ErrorType)
+                    return new ErrorType();
+            }
+        }
+        // Controlliamo che l'espressione non abbia errori
         if(exp != null)
             return exp.typeCheck();
+        // Se non c'e' un'espressione e non ci sono errori ritorniamo Void
         return new VoidType();
     }
 

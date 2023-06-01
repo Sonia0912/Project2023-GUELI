@@ -87,7 +87,7 @@ public class Test {
 				if (type instanceof ErrorType)
 					System.out.println("Type checking is WRONG!");
 				else 
-					System.out.println(type.toPrint("Type checking ok! Type of the program is: "));
+					System.out.println(type.toPrint("Type checking is OK! Type of the program is: "));
 
 /*
 				// CODE GENERATION  prova.SimpLan.asm

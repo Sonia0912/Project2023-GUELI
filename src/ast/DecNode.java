@@ -27,7 +27,7 @@ public class DecNode implements Node {
 
 	@Override
 	public Type typeCheck() {
-		return null;
+		return (Type) type;
 	}
 
 	@Override
