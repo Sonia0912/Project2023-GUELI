@@ -1,6 +1,6 @@
 int x;
 int f() {
-    3
+    if(true) {} else {x=2;}
 }
 f();
 

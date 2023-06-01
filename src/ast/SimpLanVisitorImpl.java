@@ -20,7 +20,6 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 
 	@Override
 	public Node visitProgDecStm(SimpLanParser.ProgDecStmContext ctx) {
-
 		ArrayList<Node> declarations = new ArrayList<Node>();
 		ArrayList<Node> statements = new ArrayList<Node>();
 
@@ -40,7 +39,6 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 		}
 
 		return new ProgDecStmNode(declarations, statements, null);
-
 	}
 
 	@Override
@@ -50,7 +48,6 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 
 	@Override
 	public Node visitFunDec(SimpLanParser.FunDecContext ctx) {
-
 		ArrayList<ParNode> _param = new ArrayList<ParNode>() ;
 
 		for (ParamContext vc : ctx.param())
@@ -82,7 +79,6 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 			return new BodyNode(declarations, statements, exp);
 		}
 
-
 		return new BodyNode(declarations, statements, null);
 	}
 
@@ -108,27 +104,25 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 			_param.add(visit(vc));
 		}
 
-
 		return new CallNode(ctx.ID().getText(),_param);
 	}
 
 	@Override
 	public Node visitIfStm(SimpLanParser.IfStmContext ctx) {
-
 		Node condExp = visit (ctx.cond);
-		if(ctx.thenBranch != null && ctx.elseBranch != null){
+
+		if(ctx.thenBranch != null && ctx.elseBranch != null) {
 			Node thenStm = visit (ctx.thenBranch);
 			Node elseStm = visit (ctx.elseBranch);
 			return new IfNode(condExp, thenStm, elseStm);
-		}else if(ctx.thenBranch != null && ctx.elseBranch == null ){
+		} else if(ctx.thenBranch != null && ctx.elseBranch == null ) {
 			Node thenStm = visit (ctx.thenBranch);
 			return new IfNode(condExp, thenStm, null);
-		}else if(ctx.thenBranch == null && ctx.elseBranch != null ){
+		} else if(ctx.thenBranch == null && ctx.elseBranch != null ) {
 			Node elseStm = visit (ctx.elseBranch);
 			return new IfNode(condExp, null, elseStm);
-		}else return new IfNode(condExp, null, null);
-
-
+		} else
+			return new IfNode(condExp, null, null);
 	}
 
 	@Override
@@ -177,7 +171,6 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 		else if (ctx.mineq != null)
 			return new MinEqNode(visit(ctx.left),visit(ctx.right));
 		else return new EqualNode(visit(ctx.left),visit(ctx.right));
-
 	}
 
 	@Override
@@ -216,10 +209,8 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 
 	@Override
 	public Node visitFunExp(SimpLanParser.FunExpContext ctx) {
-
 		//this corresponds to a function invocation
 		//declare the result
-
 		Node res;
 		//get the invocation arguments
 		ArrayList<Node> args = new ArrayList<Node>();

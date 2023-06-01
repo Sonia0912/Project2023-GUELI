@@ -33,11 +33,16 @@ public class IfNode implements Node {
 	public Type typeCheck() {
 		if (guard.typeCheck() instanceof BoolType) {
 			//TODO FARE I VARI CHECK
-			Type thenexp = thenbranch.typeCheck() ;
-			Type elseexp = elsebranch.typeCheck() ;
+			Type thenType = new Type() ;
+			Type elseType = new Type() ;
 
-			if (thenexp.getClass().equals(elseexp.getClass()))
-        		return thenexp;
+			if(thenbranch != null)
+				thenType = thenbranch.typeCheck() ;
+			if(elsebranch != null)
+				elseType = elsebranch.typeCheck() ;
+
+			if (thenType.getClass().equals(elseType.getClass()))
+        		return thenType;
 			else {
         		System.out.println("Type Error: incompatible types in then and else branches");
         		return new ErrorType() ;	
@@ -62,7 +67,13 @@ public class IfNode implements Node {
   	}
 
   	public String toPrint(String s) {
-	    return s+"If\n" + guard.toPrint(s+"  ") + thenbranch.toPrint(s+"  ")  + elsebranch.toPrint(s+"  ") ; 
+		String thenString = " (empty then) ";
+		String elseString = " (empty else) ";
+		if(thenbranch != null)
+			thenString = thenbranch.toPrint(s+"  ");
+		if(elsebranch != null)
+			elseString = elsebranch.toPrint(s+"  ");
+	    return s+"If\n" + guard.toPrint(s+"  ") + thenString  + elseString ;
 	}
 	  
 }  

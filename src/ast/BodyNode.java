@@ -51,7 +51,9 @@ public class BodyNode implements Node{
     public Type typeCheck () {
         for (Node s: stm)
             s.typeCheck();
-        return exp.typeCheck();
+        if(exp != null)
+            return exp.typeCheck();
+        return new VoidType();
     }
 
     // TODO cgen del Blocco
