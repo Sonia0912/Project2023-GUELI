@@ -6,6 +6,11 @@ import semanticanalysis.SymbolTable;
 import java.util.ArrayList;
 
 public class AsgNode implements Node{
+    /*
+    X = exp;
+    1. verifica che X sia sia stata dichiarata;
+    2. controllo che il tipo che ritorna exp sia lo stesso di X
+     */
 
     private String id;
     private Node exp;

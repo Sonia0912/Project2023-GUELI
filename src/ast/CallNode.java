@@ -22,8 +22,10 @@ public class CallNode implements Node {
 		STentry tmp = ST.lookup(id) ;
 		if (tmp != null) {
 				entry = tmp ;
-				for (Node par : parameters)
-					 errors.addAll(par.checkSemantics(ST, nesting));
+				for (Node par : parameters){
+					errors.addAll(par.checkSemantics(ST, nesting));
+				}
+
 		} else {
 			 	errors.add(new SemanticError("Fun ID " + id + " not declared")) ;
 		}

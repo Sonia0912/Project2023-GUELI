@@ -35,12 +35,6 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 
-		/*
-		FileInputStream is = new FileInputStream(fileName);
-		ANTLRInputStream input = new ANTLRInputStream(is);
-		SimpLanLexer lexer = new SimpLanLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		 */
 		String fileName = "prova.simplan";
 
 		CharStream input = CharStreams.fromFileName(fileName);
@@ -60,11 +54,7 @@ public class Test {
 			System.out.println("Invalid char "+  a.getText() + "  at line " + a.getLine());
 		}
 		lexer.reset();
-		/*
-		FileInputStream is = new FileInputStream(fileName);
-		ANTLRInputStream input = new ANTLRInputStream(is);
-		SimpLanLexer lexer = new SimpLanLexer(input);
-		 */
+
 
 		//SIMPLE CHECK FOR LEXER ERRORS
 		if (errorList.size() > 0){

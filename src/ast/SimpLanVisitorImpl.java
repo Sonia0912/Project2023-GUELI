@@ -55,6 +55,7 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 			_param.add( new ParNode(vc.ID().getText(), (Type) visit( vc.type() )) );
 
 		//get the exp body
+
 		Node body = visit(ctx.body());
 
 		return new FunNode(ctx.ID().getText(), (Type) visit(ctx.type()), _param, body);
@@ -100,8 +101,10 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 	public Node visitInvFun(SimpLanParser.InvFunContext ctx) {
 		ArrayList<Node> _param = new ArrayList<Node>() ;
 
-		for (ExpContext vc : ctx.exp())
+		for (ExpContext vc : ctx.exp()){
 			_param.add(visit(vc));
+		}
+
 
 		return new CallNode(ctx.ID().getText(),_param);
 	}

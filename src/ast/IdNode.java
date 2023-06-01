@@ -18,7 +18,8 @@ public class IdNode implements Node {
 	public ArrayList<SemanticError> checkSemantics(SymbolTable ST, int _nesting) {
 		ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 		nesting = _nesting ;
-		
+
+		//ST.printST();
 		STentry st_type = ST.lookup(id) ;
 		if (st_type == null)
 			errors.add(new SemanticError("Id " + id + " not declared"));

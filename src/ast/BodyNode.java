@@ -41,10 +41,8 @@ public class BodyNode implements Node{
         if(exp != null){
             errors.addAll(exp.checkSemantics(ST, nesting)) ;
         }
-        System.out.println("-- TableSymbol of Body Node --");
-        ST.printST();
         //clean the scope, we are leaving a let scope
-        ST.remove();
+        //ST.remove();
 
         //return the result
         return errors;

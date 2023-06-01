@@ -41,8 +41,8 @@ public class ProgDecStmNode implements Node {
         if(exp != null)//check semantics in the exp body
             errors.addAll(exp.checkSemantics(ST, nesting));
 
-        System.out.println("-- TableSymbol of ProDecStm --");
-        ST.printST();
+        //System.out.println("-- TableSymbol of ProDecStm --");
+        //ST.printST();
         //clean the scope, we are leaving a let scope
         ST.remove();
 

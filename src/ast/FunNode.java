@@ -43,6 +43,7 @@ public class FunNode implements Node {
     	  			else ST.insert(arg.getId(), arg.getType(), nesting+1, "") ;
 			}
 
+
 			type = new ArrowType(partypes, returntype) ;
 			
 			ST.increaseoffset() ; // aumentiamo di 1 l'offset per far posto al return value
@@ -61,7 +62,6 @@ public class FunNode implements Node {
 		if ( (body.typeCheck()).getClass().equals(returntype.getClass())) 
     			return null ;
 		else {
-			System.out.println("Wrong return type for function "+id);
 			return new ErrorType() ;
 		}  
   	}
