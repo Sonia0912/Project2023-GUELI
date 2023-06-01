@@ -41,9 +41,7 @@ public class Test {
 		SimpLanLexer lexer = new SimpLanLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		 */
-
-/*
-
+		String fileName = "prova.simplan";
 
 		CharStream input = CharStreams.fromFileName(fileName);
 		SimpLanLexer lexer = new SimpLanLexer(input);
@@ -53,29 +51,30 @@ public class Test {
 		Token token = lexer.nextToken();
 		while ( token.getType() != lexer.EOF){
 			if ( token.getType() == lexer.ERR){
-
 				errorList.add(token);
 			}
 			token = lexer.nextToken();
 		}
+
 		for (Token a: errorList) {
 			System.out.println("Invalid char "+  a.getText() + "  at line " + a.getLine());
 		}
-*/
-		String fileName = "prova.simplan";
+		lexer.reset();
+		/*
 		FileInputStream is = new FileInputStream(fileName);
 		ANTLRInputStream input = new ANTLRInputStream(is);
 		SimpLanLexer lexer = new SimpLanLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		 */
 
-		SimpLanParser parser = new SimpLanParser(tokens);
-		SimpLanVisitorImpl visitor = new SimpLanVisitorImpl();
-		Node ast = visitor.visit(parser.prog()); //generazione AST 
-			
 		//SIMPLE CHECK FOR LEXER ERRORS
-		if (lexer.lexicalErrors > 0){
+		if (errorList.size() > 0){
 			System.out.println("The program was not in the right format. Exiting the compilation process now");
 		} else {
+			CommonTokenStream tokens = new CommonTokenStream(lexer);
+			SimpLanParser parser = new SimpLanParser(tokens);
+			SimpLanVisitorImpl visitor = new SimpLanVisitorImpl();
+			Node ast = visitor.visit(parser.prog()); //generazione AST
+
 			SymbolTable ST = new SymbolTable();	
 			ArrayList<SemanticError> errors = ast.checkSemantics(ST, 0);
 			if(errors.size()>0){

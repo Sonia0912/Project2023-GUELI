@@ -2,7 +2,12 @@ grammar SimpLan;
 
 @lexer::members {
    //there is a much better way to do this, check the ANTLR guide
-   public int lexicalErrors=0;
+   //public int lexicalErrors=0;
+    @Override
+       public void recover(RecognitionException ex)
+       {
+    throw new ParsingException(ex.getMessage(),getCharPositionInLine(),ex.getOffendingToken().getText());
+           }
 }
 
 /*------------------------------------------------------------------
