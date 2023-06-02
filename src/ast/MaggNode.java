@@ -42,7 +42,7 @@ public class MaggNode implements Node {
     }
 
     public String toPrint(String s) {
-        return s+"Plus\n" + left.toPrint(s+"  ") + right.toPrint(s+"  ") ;
+        return s + left.toPrint(s+"  ") + " \t \t \t > \n \t"+ right.toPrint(s+"  ") ;
     }
 
 }

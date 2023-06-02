@@ -42,7 +42,7 @@ public class MinNode implements Node {
     }
 
     public String toPrint(String s) {
-        return s+"Plus\n" + left.toPrint(s+"  ") + right.toPrint(s+"  ") ;
+        return s+left.toPrint(s+"  ") + "\t \t \t < " +  right.toPrint(s+"  ") ;
     }
 
 }

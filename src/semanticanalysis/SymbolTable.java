@@ -2,6 +2,8 @@ package semanticanalysis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+
 import ast.BoolType ;
 import ast.IntType;
 import ast.Type;
@@ -53,6 +55,25 @@ public class SymbolTable {
 		symbol_table.remove(x-1) ;
 		offset.remove(x-1) ;
 	}
+
+	public void update(String id, STentry varToUpdate){
+		int n = symbol_table.size() - 1 ;
+		boolean found = false ;
+		while ((n >= 0) && !found) {
+			HashMap<String,STentry> H = symbol_table.get(n) ;
+			if (H.get(id) != null){
+				found = true ;
+				H.put(id,varToUpdate) ;
+			}else n = n-1 ;
+		}
+	}
+	public void restore(ArrayList<HashMap<String,STentry>> oldST, ArrayList<Integer> oldff ){
+		this.symbol_table = oldST;
+		this.offset = oldff;
+		System.out.println("var b -> " + this.lookup("b").getInitialized());
+	}
+
+
 	
 	public boolean top_lookup(String id) {
 		int n = symbol_table.size() - 1 ;

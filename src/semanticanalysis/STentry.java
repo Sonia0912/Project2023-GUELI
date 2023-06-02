@@ -1,5 +1,6 @@
 package semanticanalysis;
 
+import ast.BoolType;
 import ast.Type;
 
 public class STentry {
@@ -8,6 +9,7 @@ public class STentry {
 	private int nesting ;
 	private String label ;
 
+	private boolean initialized = false;
 	
 	public STentry(Type _type, int _offset, int _nesting) {
 		type = _type ;
@@ -21,7 +23,18 @@ public class STentry {
 		nesting = _nesting ;
 		label = _label ;
 	}
-	
+
+	public void initialize(){
+		initialized = true;
+	}
+
+	public void setInitialized(Boolean val){
+		initialized = val;
+	}
+
+	public Boolean getInitialized(){
+		return initialized;
+	}
 	public Type gettype() {
 		return type ;
 	}

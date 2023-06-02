@@ -23,7 +23,10 @@ public class IdNode implements Node {
 		STentry st_type = ST.lookup(id) ;
 		if (st_type == null)
 			errors.add(new SemanticError("Id " + id + " not declared"));
-		else type = st_type ;
+		else {
+			type = st_type ;
+		}
+
 
 		return errors;
 	}
@@ -47,7 +50,7 @@ public class IdNode implements Node {
 	}
 
 	public String toPrint(String s) {
-		return s+"Id:" + id + " at nestlev " + type.getnesting() +"\n" ;  
+		return s+"Id:" + id + " at nestlev " + type.getnesting() +"\n" ;
 	}
   
 }  

@@ -43,7 +43,7 @@ public class AndNode implements Node {
     }
 
     public String toPrint(String s) {
-        return s+"Plus\n" + left.toPrint(s+"  ") + right.toPrint(s+"  ") ;
+        return s+"And\n" + left.toPrint(s+"  ") + right.toPrint(s+"  ") ;
     }
 
 }

@@ -15,11 +15,16 @@ public class NegNode implements Node {
     }
 
     public ArrayList<SemanticError> checkSemantics(SymbolTable ST, int _nesting) {
-        return  null;
+        return  exp.checkSemantics(ST,_nesting);
     }
 
     public Type typeCheck () {
-       return null;
+        if ((exp.typeCheck() instanceof BoolType)  )
+            return new BoolType() ;
+        else {
+            System.out.println("Type Error: Non boolean expression in negation(!)") ;
+            return new ErrorType() ;
+        }
     }
 
     public String codeGeneration() {
@@ -27,6 +32,6 @@ public class NegNode implements Node {
     }
 
     public String toPrint(String s){
-            return null;
-        }
+        return s+"Negation (!) of \n" + exp.toPrint(s+"  ") ;
+    }
 }

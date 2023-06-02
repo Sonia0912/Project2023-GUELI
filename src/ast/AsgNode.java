@@ -1,5 +1,6 @@
 package ast;
 
+import semanticanalysis.STentry;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
 
@@ -29,13 +30,19 @@ public class AsgNode implements Node{
 
         errors.addAll(exp.checkSemantics(ST, _nesting));
 
+        STentry var = ST.lookup(id);
         // Controlliamo che la variabile esista
-        if (ST.lookup(id) == null)
+        if ( var == null)
             errors.add(new SemanticError("Var id " + id + " never declared"));
         else
             // Controlliamo che il tipo sia corretto
-            if (!ST.lookup(id).gettype().getClass().equals(exp.typeCheck().getClass()))
+            if (!var.gettype().getClass().equals(exp.typeCheck().getClass()))
                 errors.add(new SemanticError("Var id " + id + " type doesn't correspond to exp type"));
+            else{
+                var.initialize();
+                //ST.update(id,var);
+
+            }
 
         return errors ;
 
@@ -48,11 +55,12 @@ public class AsgNode implements Node{
 
     @Override
     public String codeGeneration() {
-        return null;
+        return exp.codeGeneration() +
+                "pushr A0 \n" ;
     }
 
     @Override
     public String toPrint(String s) {
-        return null;
+        return s + "Asg: Var " + id + " = " + exp.toPrint(s)+"\t";
     }
 }
