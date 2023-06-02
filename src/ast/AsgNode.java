@@ -32,16 +32,15 @@ public class AsgNode implements Node{
 
         STentry var = ST.lookup(id);
         // Controlliamo che la variabile esista
-        if ( var == null)
-            errors.add(new SemanticError("Var id " + id + " never declared"));
+        if (var == null)
+            errors.add(new SemanticError("Var " + id + " never declared"));
         else
             // Controlliamo che il tipo sia corretto
             if (!var.gettype().getClass().equals(exp.typeCheck().getClass()))
-                errors.add(new SemanticError("Var id " + id + " type doesn't correspond to exp type"));
-            else{
-                var.initialize();
+                errors.add(new SemanticError("Var " + id + " type doesn't correspond to exp type"));
+            else {
+                var.setInitialized(true);
                 //ST.update(id,var);
-
             }
 
         return errors ;

@@ -6,40 +6,34 @@ import evaluator.SimpLanlib;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
 
-public class IfNode implements Node {
+public class IfExpNode implements Node {
 	private Node guard ;
 	private Node thenbranch ;
 	private Node elsebranch ;
   
-	public IfNode (Node _guard, Node _thenbranch, Node _elsebranch) {
+	public IfExpNode (Node _guard, Node _thenbranch, Node _elsebranch) {
     	guard = _guard ;
     	thenbranch = _thenbranch ;
     	elsebranch = _elsebranch ;
-  }
+    }
   
    @Override
   public ArrayList<SemanticError> checkSemantics(SymbolTable ST, int _nesting) {
 	  ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
 	  errors.addAll(guard.checkSemantics(ST, _nesting));
-	  if(thenbranch != null)
-		  errors.addAll(thenbranch.checkSemantics(ST, _nesting));
-	  if (elsebranch != null)
-		  errors.addAll(elsebranch.checkSemantics(ST, _nesting));
-	  
+
+	  errors.addAll(thenbranch.checkSemantics(ST, _nesting));
+	  errors.addAll(elsebranch.checkSemantics(ST, _nesting));
+
 	  return errors;
   }
   
 	public Type typeCheck() {
 		if (guard.typeCheck() instanceof BoolType) {
-			//TODO FARE I VARI CHECK
-			Type thenType = new Type() ;
-			Type elseType = new Type() ;
 
-			if(thenbranch != null)
-				thenType = thenbranch.typeCheck() ;
-			if(elsebranch != null)
-				elseType = elsebranch.typeCheck() ;
+			Type thenType = thenbranch.typeCheck() ;
+			Type elseType = elsebranch.typeCheck() ;
 
 			if (thenType.getClass().equals(elseType.getClass()))
         		return thenType;
@@ -67,12 +61,8 @@ public class IfNode implements Node {
   	}
 
   	public String toPrint(String s) {
-		String thenString = " (empty then) ";
-		String elseString = " (empty else) ";
-		if(thenbranch != null)
-			thenString = thenbranch.toPrint(s+"  ");
-		if(elsebranch != null)
-			elseString = elsebranch.toPrint(s+"  ");
+		String thenString = thenbranch.toPrint(s+"  ");
+		String elseString = elsebranch.toPrint(s+"  ");
 	    return s+"If\n" + guard.toPrint(s+"  ") + thenString  + elseString ;
 	}
 	  

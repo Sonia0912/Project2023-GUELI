@@ -640,6 +640,7 @@ public class SimpLanParser extends Parser {
 	public static class IfStmContext extends StmContext {
 		public ExpContext cond;
 		public StmContext thenBranch;
+		public Token else_;
 		public StmContext elseBranch;
 		public ExpContext exp() {
 			return getRuleContext(ExpContext.class,0);
@@ -766,6 +767,7 @@ public class SimpLanParser extends Parser {
 				match(T__3);
 				setState(98);
 				match(T__4);
+				{
 				setState(102);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -780,6 +782,7 @@ public class SimpLanParser extends Parser {
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
+				}
 				setState(105);
 				match(T__5);
 				setState(115);
@@ -788,9 +791,10 @@ public class SimpLanParser extends Parser {
 				if (_la==T__11) {
 					{
 					setState(106);
-					match(T__11);
+					((IfStmContext)_localctx).else_ = match(T__11);
 					setState(107);
 					match(T__4);
+					{
 					setState(111);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
@@ -804,6 +808,7 @@ public class SimpLanParser extends Parser {
 						setState(113);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
+					}
 					}
 					setState(114);
 					match(T__5);

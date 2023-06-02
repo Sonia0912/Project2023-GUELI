@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import org.antlr.v4.runtime.tree.ParseTree;
 import parser.*;
 import parser.SimpLanParser.BodyContext;
 import parser.SimpLanParser.DecContext;
@@ -111,18 +112,30 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 	public Node visitIfStm(SimpLanParser.IfStmContext ctx) {
 		Node condExp = visit (ctx.cond);
 
+		ArrayList<Node> thenStms = new ArrayList<Node>();
+		ArrayList<Node> elseStms = new ArrayList<Node>();
+
+		boolean elseBranch = false;
+		for(ParseTree i : ctx.children) {
+			if(i.getText().equals("else"))
+				elseBranch = true;
+			if(i.getClass().equals(parser.SimpLanParser.AsgContext.class)) {
+				if(!elseBranch)
+					thenStms.add(visit(i));
+				else
+					elseStms.add(visit(i));
+
+			}
+		}
+
 		if(ctx.thenBranch != null && ctx.elseBranch != null) {
-			Node thenStm = visit (ctx.thenBranch);
-			Node elseStm = visit (ctx.elseBranch);
-			return new IfNode(condExp, thenStm, elseStm);
+			return new IfStmNode(condExp, thenStms, elseStms);
 		} else if(ctx.thenBranch != null && ctx.elseBranch == null ) {
-			Node thenStm = visit (ctx.thenBranch);
-			return new IfNode(condExp, thenStm, null);
+			return new IfStmNode(condExp, thenStms, null);
 		} else if(ctx.thenBranch == null && ctx.elseBranch != null ) {
-			Node elseStm = visit (ctx.elseBranch);
-			return new IfNode(condExp, null, elseStm);
+			return new IfStmNode(condExp, null, elseStms);
 		} else
-			return new IfNode(condExp, null, null);
+			return new IfStmNode(condExp, null, null);
 	}
 
 	@Override
@@ -179,7 +192,7 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 		Node thenExp = visit (ctx.thenBranch);
 		Node elseExp = visit (ctx.elseBranch);
 
-		return new IfNode(condExp, thenExp, elseExp);
+		return new IfExpNode(condExp, thenExp, elseExp);
 	}
 
 	@Override

@@ -4,12 +4,12 @@ import ast.BoolType;
 import ast.Type;
 
 public class STentry {
+
 	private Type type ;
 	private int offset ;
 	private int nesting ;
 	private String label ;
-
-	private boolean initialized = false;
+	private boolean initialized = false ;
 	
 	public STentry(Type _type, int _offset, int _nesting) {
 		type = _type ;
@@ -24,17 +24,6 @@ public class STentry {
 		label = _label ;
 	}
 
-	public void initialize(){
-		initialized = true;
-	}
-
-	public void setInitialized(Boolean val){
-		initialized = val;
-	}
-
-	public Boolean getInitialized(){
-		return initialized;
-	}
 	public Type gettype() {
 		return type ;
 	}
@@ -49,6 +38,14 @@ public class STentry {
 	
 	public String getlabel() {
 		return label ;
+	}
+
+	public Boolean getInitialized(){
+		return initialized;
+	}
+
+	public void setInitialized(Boolean val){
+		initialized = val;
 	}
 
 }

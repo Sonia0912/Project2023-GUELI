@@ -1,5 +1,15 @@
-int a; int b; int c ; c = 2 ;
-     if (c > 1) { b = c ; } else {a = b ; }
+int a; int b; int c ;
+c = 2 ;
+if (c > 1) { c = b ; a = 1; a = 5; } else { a = 4 ; }
+if (c > 1) { 4 } else { 0 }
+
+
+
+/*
+int a; int b; int c ;
+c = 2 ;
+if (c > 1) { c = b ; a = 1; a = 5; } else { a = 4 ; }
+*/
 
 /*
 int x;

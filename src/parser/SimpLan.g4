@@ -30,8 +30,8 @@ type   : 'int'
 
 stm   : ID '=' exp ';'                                                     #asg
        | ID '(' (exp (',' exp)* )? ')' ';'                                 #invFun
-       | 'if' '(' cond=exp ')' '{' (thenBranch=stm)* '}'
-       ('else' '{' (elseBranch=stm)* '}')?                                 #ifStm
+       | 'if' '(' cond=exp ')' '{' (thenBranch=stm*) '}'
+       (else='else' '{' (elseBranch=stm*) '}')?                            #ifStm
 	   ;
 
 exp    :  INTEGER                                                          #intVal

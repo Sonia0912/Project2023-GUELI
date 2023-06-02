@@ -9,6 +9,7 @@ import semanticanalysis.SymbolTable;
 public class IdNode implements Node {
 	private String id ;
 	private STentry type ;
+	private boolean init ;
 	private int nesting ;
   
 	public IdNode (String _id) {
@@ -19,23 +20,32 @@ public class IdNode implements Node {
 		ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 		nesting = _nesting ;
 
-		//ST.printST();
 		STentry st_type = ST.lookup(id) ;
 		if (st_type == null)
 			errors.add(new SemanticError("Id " + id + " not declared"));
 		else {
-			type = st_type ;
+			if(!ST.lookup(id).getInitialized())
+				errors.add(new SemanticError("Var " + id + " has not been initialised"));
+			else
+				type = st_type ;
+				//init = ST.lookup(id).getInitialized() ;
 		}
-
 
 		return errors;
 	}
   
 	public Type typeCheck () {
-		if (type.gettype() instanceof ArrowType) { //
+		if (type != null && type.gettype() instanceof ArrowType) {
 			System.out.println("Wrong usage of function identifier");
 			return new ErrorType() ;
-		} else return type.gettype() ;
+		}
+/*		if (!init) {
+			System.out.println("Var " + id + " has not been initialised");
+			return new ErrorType() ;
+		}*/
+		if(type == null)
+			return new ErrorType() ;
+		return type.gettype() ;
 	}
   
 	public String codeGeneration() {
