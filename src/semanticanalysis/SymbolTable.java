@@ -2,6 +2,7 @@ package semanticanalysis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import ast.BoolType ;
@@ -99,19 +100,6 @@ public class SymbolTable {
 		System.out.println("******");
 	}
 
-	// Aggiorna una entry dell'hashmap
-/*	public void update(String id, STentry varToUpdate){
-		int n = symbol_table.size() - 1 ;
-		boolean found = false ;
-		while ((n >= 0) && !found) {
-			HashMap<String,STentry> H = symbol_table.get(n) ;
-			if (H.get(id) != null) {
-				found = true ;
-				H.put(id,varToUpdate) ;
-			} else n = n-1 ;
-		}
-	}*/
-
 	// GETTER
 	public ArrayList<HashMap<String,STentry>> getSymbol_table() {
 		return this.symbol_table;
@@ -152,5 +140,27 @@ public class SymbolTable {
 	public void restore(ArrayList<HashMap<String,STentry>> oldST, ArrayList<Integer> oldOff){
 		this.setSymbol_table(oldST);
 		this.setOffset(oldOff);
+	}
+
+	public void union(SymbolTable ST1, SymbolTable ST2) {
+		// Cicliamo sulla prima ST
+		for(HashMap<String,STentry> hm1 : ST1.symbol_table) {
+			for(HashMap.Entry<String,STentry> e1 : hm1.entrySet()) {
+				// Cicliamo sulla seconda ST
+				for(HashMap<String,STentry> hm2 : ST2.symbol_table) {
+					for(HashMap.Entry<String,STentry> e2 : hm2.entrySet()) {
+						// Controlliamo se inizializzano la stessa var
+						if(e1.getKey().equals(e2.getKey())) {
+							STentry currEntry = this.lookup(e1.getKey());
+							if(currEntry != null && e1.getValue().getInitialized() && e2.getValue().getInitialized()) {
+								currEntry.setInitialized(true);
+							}
+						}
+
+					}
+				}
+
+			}
+		}
 	}
 }

@@ -30,12 +30,19 @@ public class IfStmNode implements Node {
         oldST.setSymbol_table(ST.getSymbol_table());
         oldST.setOffset(ST.getOffset());
 
+        SymbolTable thenST = new SymbolTable();
+        SymbolTable elseST = new SymbolTable();
+
         if(thenbranches != null) {
             HashMap<String, STentry> H = new HashMap<String, STentry>();
             ST.add(H);
             for(Node tb : thenbranches) {
                 errors.addAll(tb.checkSemantics(ST, _nesting));
             }
+            // Salviamo la ST aggiornata del then
+            thenST.setSymbol_table(ST.getSymbol_table());
+            thenST.setOffset(ST.getOffset());
+
             ST.remove();
             ST.restore(oldST.getSymbol_table(), oldST.getOffset());
         }
@@ -46,9 +53,15 @@ public class IfStmNode implements Node {
             for(Node eb : elsebranches) {
                 errors.addAll(eb.checkSemantics(ST, _nesting));
             }
+            // Salviamo la ST aggiornata dell'else
+            elseST.setSymbol_table(ST.getSymbol_table());
+            elseST.setOffset(ST.getOffset());
+
             ST.remove();
             ST.restore(oldST.getSymbol_table(), oldST.getOffset());
         }
+
+        ST.union(thenST, elseST);
 
         return errors;
     }

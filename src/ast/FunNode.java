@@ -27,6 +27,11 @@ public class FunNode implements Node {
 
 		ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 		nesting = _nesting ;
+
+		// Salviamo la vecchia ST da restorare dopo aver controllato il body
+		SymbolTable oldST = new SymbolTable();
+		oldST.setSymbol_table(ST.getSymbol_table());
+		oldST.setOffset(ST.getOffset());
 		
 		if (ST.lookup(id) != null)
 			errors.add(new SemanticError("Identifier " + id + " already declared"));
@@ -45,19 +50,8 @@ public class FunNode implements Node {
 						//in questo modo dichiaro che i parametri della funzione saranno sicuramente inizializzati
 						STentry a = ST.lookup(arg.getId());
 						a.setInitialized(true);
-						/*vado a fare checkSemantics su ogni ParNode?
-						ArrayList<SemanticError> parError = arg.checkSemantics(ST,_nesting);
-
-						System.out.println("size "+ parError.size());
-						if(parError.size() != 0){
-							ST.insert(arg.getId(), arg.getType(), nesting+1, "") ;
-						}else{
-							errors.add(new SemanticError("Error sui param della fun " + arg.getId() )) ;
-						}
-						   */
 					}
 			}
-
 
 			type = new ArrowType(partypes, returntype) ;
 			
@@ -67,10 +61,17 @@ public class FunNode implements Node {
 			flabel = SimpLanlib.freshFunLabel() ;
 			ST.insert(id, type, nesting, flabel) ;
 
-			if(body != null)
+			if(body != null) {
+
 				errors.addAll(body.checkSemantics(ST, nesting+1));
 
+
+			}
+
+
 			ST.remove();
+
+			ST.restore(oldST.getSymbol_table(), oldST.getOffset());
 			
 			flabel = SimpLanlib.freshFunLabel() ;
 			ST.insert(id, type, nesting, flabel) ;
