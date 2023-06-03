@@ -1,5 +1,11 @@
-int a; int b; int c ; c = 2 ;
-     if (c > 1) { b = c ; } else { a = b ; }
+int a;
+void h(int n){
+  	  bool x ; int y ;
+      if (n==0) { x = true ;} else { h(n-1) ; y = x ;}
+     }
+h(5) ;
+
+
 
 
 
