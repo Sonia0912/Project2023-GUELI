@@ -40,7 +40,22 @@ public class FunNode implements Node {
     	  			partypes.add(arg.getType());
     	  			if (ST.top_lookup(arg.getId()))
     	  					errors.add(new SemanticError("Parameter id " + arg.getId() + " already declared")) ;
-    	  			else ST.insert(arg.getId(), arg.getType(), nesting+1, "") ;
+    	  			else {
+						ST.insert(arg.getId(), arg.getType(), nesting+1, "") ;
+						//in questo modo dichiaro che i parametri della funzione saranno sicuramente inizializzati
+						STentry a = ST.lookup(arg.getId());
+						a.setInitialized(true);
+						/*vado a fare checkSemantics su ogni ParNode?
+						ArrayList<SemanticError> parError = arg.checkSemantics(ST,_nesting);
+
+						System.out.println("size "+ parError.size());
+						if(parError.size() != 0){
+							ST.insert(arg.getId(), arg.getType(), nesting+1, "") ;
+						}else{
+							errors.add(new SemanticError("Error sui param della fun " + arg.getId() )) ;
+						}
+						   */
+					}
 			}
 
 

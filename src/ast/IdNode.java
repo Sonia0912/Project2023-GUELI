@@ -24,7 +24,7 @@ public class IdNode implements Node {
 		if (st_type == null)
 			errors.add(new SemanticError("Id " + id + " not declared"));
 		else {
-			if(!ST.lookup(id).getInitialized())
+			if(!st_type.getInitialized())
 				errors.add(new SemanticError("Var " + id + " has not been initialised"));
 			else
 				type = st_type ;
