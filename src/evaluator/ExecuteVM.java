@@ -208,6 +208,19 @@ public class ExecuteVM {
               case SVMParser.RETURNSUB:
                     ip = read(bytecode.getArg1()) ;
                     break;
+
+			  case SVMParser.BGTE:
+				  if (read(bytecode.getArg1()) >= read(bytecode.getArg2())){
+					  address = ip+1;
+					  ip = code[address].getCode() ;
+				  } else ip = ip+2 ;
+				  break;
+			  case SVMParser.BL:
+					if (read(bytecode.getArg1()) < read(bytecode.getArg2())){
+						address = ip+1;
+						ip = code[address].getCode() ;
+					} else ip = ip+2 ;
+					break;
               case SVMParser.HALT : //to print the result 
              		System.out.println("\nResult: " + a0 + "\n");
              		return;          

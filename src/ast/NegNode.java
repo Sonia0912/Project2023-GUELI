@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import evaluator.SimpLanlib;
 import semanticanalysis.STentry;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
@@ -28,7 +29,7 @@ public class NegNode implements Node {
     }
 
     public String codeGeneration() {
-        return null;
+        return exp.codeGeneration() ;
     }
 
     public String toPrint(String s){

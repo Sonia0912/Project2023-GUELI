@@ -18,7 +18,7 @@ public class VoidNode implements Node {
     }
 
     public String codeGeneration() {
-        return null;
+        return "";
     } // TODO?
 
     public String toPrint(String s) {

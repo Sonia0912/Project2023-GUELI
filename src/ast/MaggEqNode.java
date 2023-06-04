@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import evaluator.SimpLanlib;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
 
@@ -33,13 +34,18 @@ public class MaggEqNode implements Node {
 
 
     public String codeGeneration() {
-        //TODO etichetta
-        return left.codeGeneration()+
+        String label = SimpLanlib.freshLabel();
+        String exit = SimpLanlib.freshLabel();
+        return left.codeGeneration() +
                 "pushr A0 \n" +
-                right.codeGeneration()+
+                right.codeGeneration() +
                 "popr T1 \n" +
-                "BEQ A0 T1 \n" +
-                "popr A0 \n" ;
+                "bgte A0 T1 " + label+ "\n"+
+                "storei A0 1 \n" +
+                "b " + exit +"\n"+
+                label+": storei A0 0 \n"+
+                exit + ": \n";
+
     }
 
     public String toPrint(String s) {
