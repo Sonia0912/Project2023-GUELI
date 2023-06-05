@@ -1,21 +1,17 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from /Users/gian/ANTLR/SimpLan/src/parser/SimpLan.g4 by ANTLR 4.12.0
 package parser;
-
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class SimpLanParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.12.0", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -87,7 +83,7 @@ public class SimpLanParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "java-escape"; }
+	public String getGrammarFileName() { return "SimpLan.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -210,11 +206,11 @@ public class SimpLanParser extends Parser {
 					setState(18); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( ((_la) & ~0x3f) == 0 && ((1L << _la) & 896L) != 0 );
+				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 896L) != 0) );
 				setState(23);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
-				while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
@@ -230,7 +226,7 @@ public class SimpLanParser extends Parser {
 				setState(27);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 402712580L) != 0) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 402712580L) != 0)) {
 					{
 					setState(26);
 					exp(0);
@@ -351,7 +347,7 @@ public class SimpLanParser extends Parser {
 				setState(46);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 896L) != 0) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 896L) != 0)) {
 					{
 					setState(38);
 					param();
@@ -502,7 +498,7 @@ public class SimpLanParser extends Parser {
 			setState(61);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 896L) != 0) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 896L) != 0)) {
 				{
 				{
 				setState(58);
@@ -516,7 +512,7 @@ public class SimpLanParser extends Parser {
 			setState(67);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -532,7 +528,7 @@ public class SimpLanParser extends Parser {
 			setState(71);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 402712580L) != 0) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 402712580L) != 0)) {
 				{
 				setState(70);
 				exp(0);
@@ -582,7 +578,7 @@ public class SimpLanParser extends Parser {
 			{
 			setState(73);
 			_la = _input.LA(1);
-			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 896L) != 0) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 896L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -724,7 +720,7 @@ public class SimpLanParser extends Parser {
 				setState(90);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 402712580L) != 0) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 402712580L) != 0)) {
 					{
 					setState(82);
 					exp(0);
@@ -1318,7 +1314,7 @@ public class SimpLanParser extends Parser {
 				setState(151);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 402712580L) != 0) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 402712580L) != 0)) {
 					{
 					setState(143);
 					exp(0);
@@ -1350,7 +1346,7 @@ public class SimpLanParser extends Parser {
 			setState(188);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
