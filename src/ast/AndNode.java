@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import evaluator.SimpLanlib;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
 
@@ -33,13 +34,24 @@ public class AndNode implements Node {
 
 
     public String codeGeneration() {
-        //TODO etichetta
+        String equalLabel = SimpLanlib.freshLabel();
+        String trueLabel = SimpLanlib.freshLabel();
+        String exit = SimpLanlib.freshLabel();
         return left.codeGeneration()+
                 "pushr A0 \n" +
                 right.codeGeneration()+
                 "popr T1 \n" +
-                "BEQ A0 T1 \n" +
-                "popr A0 \n" ;
+                "beq A0 T1 " + equalLabel + "\n" +
+                "storei A0 0 \n" +
+                "b " + exit + "\n" +
+                equalLabel + ":\n" +
+                "storei A0 1 \n" +
+                "beq A0 T1 " + trueLabel + "\n" +
+                "storei A0 0 \n" +
+                "b " + exit + "\n" +
+                trueLabel + ":\n" +
+                "storei A0 1 \n" +
+                exit + ":\n" ;
     }
 
     public String toPrint(String s) {

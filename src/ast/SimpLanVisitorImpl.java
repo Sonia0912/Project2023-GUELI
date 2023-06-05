@@ -4,13 +4,10 @@ import java.util.ArrayList;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.*;
-import parser.SimpLanParser.BodyContext;
 import parser.SimpLanParser.DecContext;
 import parser.SimpLanParser.ExpContext;
 import parser.SimpLanParser.ParamContext;
-import parser.SimpLanParser.ProgContext;
 import parser.SimpLanParser.StmContext;
-import parser.SimpLanParser.TypeContext;
 
 public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 

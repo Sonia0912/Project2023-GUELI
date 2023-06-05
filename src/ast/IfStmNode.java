@@ -112,10 +112,10 @@ public class IfStmNode implements Node {
         return guard.codeGeneration() +
                 "storei T1 1 \n" +
                 "beq A0 T1 "+ lthen + "\n" +
-                thenB +
+                elseB +
                 "b " + lend + "\n" +
                 lthen + ":\n" +
-                elseB +
+                thenB +
                 lend + ":\n" ;
     }
 

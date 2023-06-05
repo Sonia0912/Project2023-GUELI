@@ -14,6 +14,7 @@ public class AsgNode implements Node{
      */
 
     private String id;
+    private STentry stentry ;
     private Node exp;
     private int nesting;
 
@@ -39,6 +40,7 @@ public class AsgNode implements Node{
             if (!var.gettype().getClass().equals(exp.typeCheck().getClass()))
                 errors.add(new SemanticError("Var " + id + " type doesn't correspond to exp type"));
             else {
+                stentry = ST.lookup(id) ;
                 var.setInitialized(true);
                 //ST.update(id,var);
             }
@@ -54,8 +56,14 @@ public class AsgNode implements Node{
 
     @Override
     public String codeGeneration() {
+        String getAR = "";
+        for (int i = 0; i < nesting - stentry.getnesting(); i++)
+            getAR += "store T1 0(T1) \n";
         return exp.codeGeneration() +
-                "pushr A0 \n" ;
+                "move AL T1 \n"
+                + getAR  //risalgo la catena statica
+                + "subi T1 " + stentry.getoffset() +"\n" //metto offset sullo stack
+                + "load A0 0(T1) \n" ;
     }
 
     @Override

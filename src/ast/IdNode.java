@@ -48,8 +48,8 @@ public class IdNode implements Node {
 	}
   
 	public String codeGeneration() {
-		String getAR="";
-		for (int i=0; i < nesting - type.getnesting(); i++) 
+		String getAR = "";
+		for (int i = 0; i < nesting - type.getnesting(); i++)
 	    	 getAR += "store T1 0(T1) \n";
 	    return 
 		       "move AL T1 \n"

@@ -1,4 +1,4 @@
-// Generated from SVM.g4 by ANTLR 4.6
+// Generated from java-escape by ANTLR 4.11.1
 package parser;
 
 import java.util.HashMap;
@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class SVMParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.6", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.11.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -27,22 +27,31 @@ public class SVMParser extends Parser {
 		ERR=31;
 	public static final int
 		RULE_assembly = 0, RULE_instruction = 1;
-	public static final String[] ruleNames = {
-		"assembly", "instruction"
-	};
+	private static String[] makeRuleNames() {
+		return new String[] {
+			"assembly", "instruction"
+		};
+	}
+	public static final String[] ruleNames = makeRuleNames();
 
-	private static final String[] _LITERAL_NAMES = {
-		null, "'('", "')'", "':'", "'load'", "'store'", "'storei'", "'move'", 
-		"'add'", "'addi'", "'sub'", "'subi'", "'mul'", "'muli'", "'div'", "'divi'", 
-		"'push'", "'pushr'", "'pop'", "'popr'", "'b'", "'beq'", "'bleq'", "'jsub'", 
-		"'rsub'", "'halt'"
-	};
-	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, "LOAD", "STORE", "STOREI", "MOVE", "ADD", "ADDI", 
-		"SUB", "SUBI", "MUL", "MULI", "DIV", "DIVI", "PUSH", "PUSHR", "POP", "POPR", 
-		"BRANCH", "BRANCHEQ", "BRANCHLESSEQ", "JUMPSUB", "RETURNSUB", "HALT", 
-		"REG", "LABEL", "NUMBER", "WHITESP", "LINECOMENTS", "ERR"
-	};
+	private static String[] makeLiteralNames() {
+		return new String[] {
+			null, "'('", "')'", "':'", "'load'", "'store'", "'storei'", "'move'", 
+			"'add'", "'addi'", "'sub'", "'subi'", "'mul'", "'muli'", "'div'", "'divi'", 
+			"'push'", "'pushr'", "'pop'", "'popr'", "'b'", "'beq'", "'bleq'", "'jsub'", 
+			"'rsub'", "'halt'"
+		};
+	}
+	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	private static String[] makeSymbolicNames() {
+		return new String[] {
+			null, null, null, null, "LOAD", "STORE", "STOREI", "MOVE", "ADD", "ADDI", 
+			"SUB", "SUBI", "MUL", "MULI", "DIV", "DIVI", "PUSH", "PUSHR", "POP", 
+			"POPR", "BRANCH", "BRANCHEQ", "BRANCHLESSEQ", "JUMPSUB", "RETURNSUB", 
+			"HALT", "REG", "LABEL", "NUMBER", "WHITESP", "LINECOMENTS", "ERR"
+		};
+	}
+	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
@@ -77,7 +86,7 @@ public class SVMParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "SVM.g4"; }
+	public String getGrammarFileName() { return "java-escape"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -92,6 +101,8 @@ public class SVMParser extends Parser {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssemblyContext extends ParserRuleContext {
 		public List<InstructionContext> instruction() {
 			return getRuleContexts(InstructionContext.class);
@@ -103,6 +114,14 @@ public class SVMParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_assembly; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SVMListener ) ((SVMListener)listener).enterAssembly(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SVMListener ) ((SVMListener)listener).exitAssembly(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SVMVisitor ) return ((SVMVisitor<? extends T>)visitor).visitAssembly(this);
@@ -120,7 +139,7 @@ public class SVMParser extends Parser {
 			setState(7);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LOAD) | (1L << STORE) | (1L << STOREI) | (1L << MOVE) | (1L << ADD) | (1L << ADDI) | (1L << SUB) | (1L << SUBI) | (1L << MUL) | (1L << MULI) | (1L << DIV) | (1L << DIVI) | (1L << PUSH) | (1L << PUSHR) | (1L << POP) | (1L << POPR) | (1L << BRANCH) | (1L << BRANCHEQ) | (1L << BRANCHLESSEQ) | (1L << JUMPSUB) | (1L << RETURNSUB) | (1L << HALT) | (1L << LABEL))) != 0)) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 201326576L) != 0) {
 				{
 				{
 				setState(4);
@@ -144,6 +163,7 @@ public class SVMParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
 	public static class InstructionContext extends ParserRuleContext {
 		public Token n;
 		public Token l;
@@ -179,6 +199,14 @@ public class SVMParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_instruction; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SVMListener ) ((SVMListener)listener).enterInstruction(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SVMListener ) ((SVMListener)listener).exitInstruction(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof SVMVisitor ) return ((SVMVisitor<? extends T>)visitor).visitInstruction(this);
@@ -452,30 +480,62 @@ public class SVMParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3!T\4\2\t\2\4\3\t\3"+
-		"\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\5\3:\n\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3R\n\3\3\3\2\2\4\2\4\2\2i\2\t\3\2\2\2"+
-		"\4Q\3\2\2\2\6\b\5\4\3\2\7\6\3\2\2\2\b\13\3\2\2\2\t\7\3\2\2\2\t\n\3\2\2"+
-		"\2\n\3\3\2\2\2\13\t\3\2\2\2\f\r\7\6\2\2\r\16\7\34\2\2\16\17\7\36\2\2\17"+
-		"\20\7\3\2\2\20\21\7\34\2\2\21R\7\4\2\2\22\23\7\7\2\2\23\24\7\34\2\2\24"+
-		"\25\7\36\2\2\25\26\7\3\2\2\26\27\7\34\2\2\27R\7\4\2\2\30\31\7\b\2\2\31"+
-		"\32\7\34\2\2\32R\7\36\2\2\33\34\7\t\2\2\34\35\7\34\2\2\35R\7\34\2\2\36"+
-		"\37\7\n\2\2\37 \7\34\2\2 R\7\34\2\2!\"\7\13\2\2\"#\7\34\2\2#R\7\36\2\2"+
-		"$%\7\f\2\2%&\7\34\2\2&R\7\34\2\2\'(\7\r\2\2()\7\34\2\2)R\7\36\2\2*+\7"+
-		"\16\2\2+,\7\34\2\2,R\7\34\2\2-.\7\17\2\2./\7\34\2\2/R\7\36\2\2\60\61\7"+
-		"\20\2\2\61\62\7\34\2\2\62R\7\34\2\2\63\64\7\21\2\2\64\65\7\34\2\2\65R"+
-		"\7\36\2\2\669\7\22\2\2\67:\7\36\2\28:\7\35\2\29\67\3\2\2\298\3\2\2\2:"+
-		"R\3\2\2\2;<\7\23\2\2<R\7\34\2\2=R\7\24\2\2>?\7\25\2\2?R\7\34\2\2@A\7\26"+
-		"\2\2AR\7\35\2\2BC\7\27\2\2CD\7\34\2\2DE\7\34\2\2ER\7\35\2\2FG\7\30\2\2"+
-		"GH\7\34\2\2HI\7\34\2\2IR\7\35\2\2JK\7\31\2\2KR\7\35\2\2LM\7\32\2\2MR\7"+
-		"\34\2\2NO\7\35\2\2OR\7\5\2\2PR\7\33\2\2Q\f\3\2\2\2Q\22\3\2\2\2Q\30\3\2"+
-		"\2\2Q\33\3\2\2\2Q\36\3\2\2\2Q!\3\2\2\2Q$\3\2\2\2Q\'\3\2\2\2Q*\3\2\2\2"+
-		"Q-\3\2\2\2Q\60\3\2\2\2Q\63\3\2\2\2Q\66\3\2\2\2Q;\3\2\2\2Q=\3\2\2\2Q>\3"+
-		"\2\2\2Q@\3\2\2\2QB\3\2\2\2QF\3\2\2\2QJ\3\2\2\2QL\3\2\2\2QN\3\2\2\2QP\3"+
-		"\2\2\2R\5\3\2\2\2\5\t9Q";
+		"\u0004\u0001\u001fR\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0001"+
+		"\u0000\u0005\u0000\u0006\b\u0000\n\u0000\f\u0000\t\t\u0000\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0003\u00018\b\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0003\u0001P\b\u0001\u0001\u0001\u0000\u0000"+
+		"\u0002\u0000\u0002\u0000\u0000g\u0000\u0007\u0001\u0000\u0000\u0000\u0002"+
+		"O\u0001\u0000\u0000\u0000\u0004\u0006\u0003\u0002\u0001\u0000\u0005\u0004"+
+		"\u0001\u0000\u0000\u0000\u0006\t\u0001\u0000\u0000\u0000\u0007\u0005\u0001"+
+		"\u0000\u0000\u0000\u0007\b\u0001\u0000\u0000\u0000\b\u0001\u0001\u0000"+
+		"\u0000\u0000\t\u0007\u0001\u0000\u0000\u0000\n\u000b\u0005\u0004\u0000"+
+		"\u0000\u000b\f\u0005\u001a\u0000\u0000\f\r\u0005\u001c\u0000\u0000\r\u000e"+
+		"\u0005\u0001\u0000\u0000\u000e\u000f\u0005\u001a\u0000\u0000\u000fP\u0005"+
+		"\u0002\u0000\u0000\u0010\u0011\u0005\u0005\u0000\u0000\u0011\u0012\u0005"+
+		"\u001a\u0000\u0000\u0012\u0013\u0005\u001c\u0000\u0000\u0013\u0014\u0005"+
+		"\u0001\u0000\u0000\u0014\u0015\u0005\u001a\u0000\u0000\u0015P\u0005\u0002"+
+		"\u0000\u0000\u0016\u0017\u0005\u0006\u0000\u0000\u0017\u0018\u0005\u001a"+
+		"\u0000\u0000\u0018P\u0005\u001c\u0000\u0000\u0019\u001a\u0005\u0007\u0000"+
+		"\u0000\u001a\u001b\u0005\u001a\u0000\u0000\u001bP\u0005\u001a\u0000\u0000"+
+		"\u001c\u001d\u0005\b\u0000\u0000\u001d\u001e\u0005\u001a\u0000\u0000\u001e"+
+		"P\u0005\u001a\u0000\u0000\u001f \u0005\t\u0000\u0000 !\u0005\u001a\u0000"+
+		"\u0000!P\u0005\u001c\u0000\u0000\"#\u0005\n\u0000\u0000#$\u0005\u001a"+
+		"\u0000\u0000$P\u0005\u001a\u0000\u0000%&\u0005\u000b\u0000\u0000&\'\u0005"+
+		"\u001a\u0000\u0000\'P\u0005\u001c\u0000\u0000()\u0005\f\u0000\u0000)*"+
+		"\u0005\u001a\u0000\u0000*P\u0005\u001a\u0000\u0000+,\u0005\r\u0000\u0000"+
+		",-\u0005\u001a\u0000\u0000-P\u0005\u001c\u0000\u0000./\u0005\u000e\u0000"+
+		"\u0000/0\u0005\u001a\u0000\u00000P\u0005\u001a\u0000\u000012\u0005\u000f"+
+		"\u0000\u000023\u0005\u001a\u0000\u00003P\u0005\u001c\u0000\u000047\u0005"+
+		"\u0010\u0000\u000058\u0005\u001c\u0000\u000068\u0005\u001b\u0000\u0000"+
+		"75\u0001\u0000\u0000\u000076\u0001\u0000\u0000\u00008P\u0001\u0000\u0000"+
+		"\u00009:\u0005\u0011\u0000\u0000:P\u0005\u001a\u0000\u0000;P\u0005\u0012"+
+		"\u0000\u0000<=\u0005\u0013\u0000\u0000=P\u0005\u001a\u0000\u0000>?\u0005"+
+		"\u0014\u0000\u0000?P\u0005\u001b\u0000\u0000@A\u0005\u0015\u0000\u0000"+
+		"AB\u0005\u001a\u0000\u0000BC\u0005\u001a\u0000\u0000CP\u0005\u001b\u0000"+
+		"\u0000DE\u0005\u0016\u0000\u0000EF\u0005\u001a\u0000\u0000FG\u0005\u001a"+
+		"\u0000\u0000GP\u0005\u001b\u0000\u0000HI\u0005\u0017\u0000\u0000IP\u0005"+
+		"\u001b\u0000\u0000JK\u0005\u0018\u0000\u0000KP\u0005\u001a\u0000\u0000"+
+		"LM\u0005\u001b\u0000\u0000MP\u0005\u0003\u0000\u0000NP\u0005\u0019\u0000"+
+		"\u0000O\n\u0001\u0000\u0000\u0000O\u0010\u0001\u0000\u0000\u0000O\u0016"+
+		"\u0001\u0000\u0000\u0000O\u0019\u0001\u0000\u0000\u0000O\u001c\u0001\u0000"+
+		"\u0000\u0000O\u001f\u0001\u0000\u0000\u0000O\"\u0001\u0000\u0000\u0000"+
+		"O%\u0001\u0000\u0000\u0000O(\u0001\u0000\u0000\u0000O+\u0001\u0000\u0000"+
+		"\u0000O.\u0001\u0000\u0000\u0000O1\u0001\u0000\u0000\u0000O4\u0001\u0000"+
+		"\u0000\u0000O9\u0001\u0000\u0000\u0000O;\u0001\u0000\u0000\u0000O<\u0001"+
+		"\u0000\u0000\u0000O>\u0001\u0000\u0000\u0000O@\u0001\u0000\u0000\u0000"+
+		"OD\u0001\u0000\u0000\u0000OH\u0001\u0000\u0000\u0000OJ\u0001\u0000\u0000"+
+		"\u0000OL\u0001\u0000\u0000\u0000ON\u0001\u0000\u0000\u0000P\u0003\u0001"+
+		"\u0000\u0000\u0000\u0003\u00077O";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

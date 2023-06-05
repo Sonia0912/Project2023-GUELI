@@ -91,8 +91,9 @@ public class FunNode implements Node {
 		}
 
   	}
-  
-  public String codeGeneration() {
+
+	// TODO
+  	public String codeGeneration() {
 	  
 	    String declCode = "" ;
 	     
@@ -112,9 +113,9 @@ public class FunNode implements Node {
 	    		);
 	    
 		return "push "+ flabel +"\n";
-  }
+  	}
   
-  public String toPrint(String s) {
+  	public String toPrint(String s) {
 		String parlstr="";
 		for (Node par:parlist){
 		  parlstr += par.toPrint(s);
@@ -132,4 +133,4 @@ public class FunNode implements Node {
 		}
 	  }
 	  
-}  
+	}

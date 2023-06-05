@@ -21,25 +21,15 @@ import javax.swing.plaf.synth.SynthTextAreaUI;
 
 public class Test {
 
-	private static SimpLanParser getParser(String fileName) {
-		SimpLanParser parser = null;
-		try {
-			CharStream input = CharStreams.fromFileName(fileName);
-			SimpLanLexer lexer = new SimpLanLexer(input);
-			CommonTokenStream tokens = new CommonTokenStream(lexer);
-			parser = new SimpLanParser(tokens);
-
-		}catch (IOException e){
-			e.printStackTrace();
-		}
-		return parser;
-	}
-
 	public static void main(String[] args) throws Exception {
 
 		String fileName = "prova.simplan";
 
-		CharStream input = CharStreams.fromFileName(fileName);
+/*		CharStream input = CharStreams.fromFileName(fileName);
+		SimpLanLexer lexer = new SimpLanLexer(input);*/
+
+		FileInputStream is = new FileInputStream(fileName);
+		ANTLRInputStream input = new ANTLRInputStream(is);
 		SimpLanLexer lexer = new SimpLanLexer(input);
 
 		// Stampiamo in un file di testo gli errori lessicali
@@ -89,7 +79,8 @@ public class Test {
 				else 
 					System.out.println(type.toPrint("Type checking is OK! Type of the program is: "));
 
-/*
+
+
 				// CODE GENERATION  prova.SimpLan.asm
 				String code=ast.codeGeneration(); 
 				BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm")); 
@@ -114,7 +105,8 @@ public class Test {
 				System.out.println("Starting Virtual Machine...");
 				ExecuteVM vm = new ExecuteVM(visitorSVM.code);
 				vm.cpu();
-				*/
+
+
 				}
 		}
 

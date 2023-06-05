@@ -56,8 +56,9 @@ public class CallNode implements Node {
 				return new ErrorType() ;
 		}
 	}
-  
-  public String codeGeneration() {
+
+	// TODO
+  	public String codeGeneration() {
 	    String parCode="";
 	    for (int i = 0; i < parameters.size() ; i = i+1)
 	    		parCode += parameters.get(i).codeGeneration() + "pushr A0\n" ;
@@ -67,7 +68,7 @@ public class CallNode implements Node {
 		    	getAR+="store T1 0(T1) \n";
 		  					// formato AR: control_link + access link + parameters + indirizzo di ritorno + dich_locali
 
-		return  "pushr FP \n"			// carico il frame pointer
+		return    "pushr FP \n"			// carico il frame pointer
 				+ "move SP FP \n"
 				+ "addi FP 1 \n"	// salvo in FP il puntatore all'indirizzo del frame pointer caricato
 				+ "move AL T1\n"		// risalgo la catena statica
@@ -77,7 +78,7 @@ public class CallNode implements Node {
 				+ "move FP AL \n"
 				+ "subi AL 1 \n"
 				+ "jsub " + entry.getlabel() + "\n" ;
-  }
+  	}
 
 	public String toPrint(String s) {  //
 	    String parlstr="";

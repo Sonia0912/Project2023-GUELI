@@ -56,19 +56,29 @@ public class BodyNode implements Node{
         return new VoidType();
     }
 
-    // TODO cgen del Blocco
+    // TODO
     public String codeGeneration() {
-        String declCode="";
+        String declCode = "";
+        String stmsCode = "";
+        String expCode = "";
         for (Node d: dec)
             declCode += d.codeGeneration();
-        return  "move SP FP  \n"
-                + "pushr FP \n"
-                + "move SP AL \n"
-                + "pushr AL \n"
+        for (Node s: stm)
+            declCode += s.codeGeneration();
+        if(exp != null)
+            expCode = exp.codeGeneration();
+        return    "pushr FP \n"
+                + "move SP FP \n"
+                + "addi FP 1 \n"
+                + "popr FP \n"
+                + "move AL T1 \n"
+                + "pushr T1 \n"
+                + "move FP \n"
+                + "subi AL 1 \n"
+                + "popr AL \n"
                 + declCode
-                + exp.codeGeneration()
-                + "halt\n" +
-                SimpLanlib.getCode();
+                + stmsCode
+                + expCode ;
     }
 
     public String toPrint(String s) {
