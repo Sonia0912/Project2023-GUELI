@@ -40,10 +40,10 @@ public class MinEqNode implements Node {
                 "pushr A0 \n" +
                 right.codeGeneration() +
                 "popr T1 \n" +
-                "bleq A0 T1 " + label+ "\n"+
-                "storei A0 1 \n" +
+                "bleq T1 A0 " + label+ "\n"+
+                "storei A0 0 \n" +
                 "b " + exit +"\n"+
-                label+": storei A0 0 \n"+
+                label+": storei A0 1 \n"+
                 exit + ": \n";
     }
 

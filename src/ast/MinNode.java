@@ -41,9 +41,9 @@ public class MinNode implements Node {
                 right.codeGeneration() +
                 "popr T1 \n" +
                 "bl A0 T1 " + label+ "\n"+
-                "storei A0 0 \n" +
+                "storei A0 1 \n" +
                 "b " + exit +"\n"+
-                label+": storei A0 1 \n"+
+                label+": storei A0 0 \n"+
                 exit + ": \n";
     }
 
