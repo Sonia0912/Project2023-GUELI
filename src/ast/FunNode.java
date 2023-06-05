@@ -62,10 +62,10 @@ public class FunNode implements Node {
 			ST.insert(id, type, nesting, flabel) ;
 
 			if(body != null) {
-				errors.addAll(body.checkSemantics(ST, nesting));
+				errors.addAll(body.checkSemantics(ST, nesting+1));
 			}
 			ST.remove();
-			//ST.union(oldST,ST);
+
 			ST.restore(oldST.getSymbol_table(), oldST.getOffset());
 			
 			//flabel = SimpLanlib.freshFunLabel() ;
@@ -88,8 +88,6 @@ public class FunNode implements Node {
   	}
 
   	public String codeGeneration() {
-	  
-
 	    SimpLanlib.putCode(
 	    			flabel + ":\n"
 	    			+ "pushr RA \n"
@@ -103,7 +101,6 @@ public class FunNode implements Node {
 	    			+ "pop \n"
 	    			+ "rsub RA \n" 
 	    		);
-	    
 		return  "push "+ flabel +"\n";
   	}
   

@@ -105,11 +105,8 @@ public class Test {
 				ExecuteVM vm = new ExecuteVM(visitorSVM.code);
 				vm.cpu();
 
-				}
+
+			}
 		}
-
-
 	}
-
-
 }

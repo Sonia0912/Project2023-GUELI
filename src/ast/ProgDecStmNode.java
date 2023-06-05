@@ -69,7 +69,6 @@ public class ProgDecStmNode implements Node {
         return new VoidType();
     }
 
-    // TODO
     public String codeGeneration() {
         String expCode = "";
         if(exp != null){

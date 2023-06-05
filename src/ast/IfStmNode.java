@@ -26,14 +26,13 @@ public class IfStmNode implements Node {
 
         errors.addAll(guard.checkSemantics(ST, _nesting));
 
-
+        // Salviamo la ST iniziale per restorarla dopo l'if
         SymbolTable oldST = new SymbolTable();
         oldST.setSymbol_table(ST.getSymbol_table());
         oldST.setOffset(ST.getOffset());
-
+        // Salviamo le ST generate nel then e nell'else per confrontarle in seguito
         SymbolTable thenST = new SymbolTable();
         SymbolTable elseST = new SymbolTable();
-
 
         if(thenbranches != null) {
             HashMap<String, STentry> H = new HashMap<String, STentry>();
@@ -51,13 +50,10 @@ public class IfStmNode implements Node {
 
         if (elsebranches != null) {
             HashMap<String, STentry> H = new HashMap<String, STentry>();
-
             ST.add(H);
-            //System.out.println("sono dentro else branche -> "+ST.lookup("f").getlabel());
             for(Node eb : elsebranches) {
                 errors.addAll(eb.checkSemantics(ST, _nesting));
             }
-
             // Salviamo la ST aggiornata dell'else
             elseST.setSymbol_table(ST.getSymbol_table());
             elseST.setOffset(ST.getOffset());
@@ -66,7 +62,8 @@ public class IfStmNode implements Node {
             ST.restore(oldST.getSymbol_table(), oldST.getOffset());
         }
 
-       // ST.union(thenST, elseST);
+        // Facciamo il caso pessimo tra le due ST
+        ST.union(thenST, elseST);
 
         return errors;
     }

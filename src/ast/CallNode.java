@@ -27,7 +27,7 @@ public class CallNode implements Node {
 				}
 
 		} else {
-			 	errors.add(new SemanticError("Fun ID " + id + " not declared")) ;
+			 	errors.add(new SemanticError("Fun " + id + " not declared")) ;
 		}
 		return errors;
   }
@@ -63,27 +63,28 @@ public class CallNode implements Node {
 
 	}
 
-	// TODO
   	public String codeGeneration() {
-	    String parCode="";
-	    for (int i = 0; i < parameters.size() ; i = i+1)
-	    		parCode += parameters.get(i).codeGeneration() + "pushr A0\n" ;
-	    
-	    StringBuilder getAR= new StringBuilder();
-		for (int i=0; i < nesting - entry.getnesting() ; i++) 
-		    	getAR.append("store T1 0(T1) \n");
-		  					// formato AR: control_link + access link + parameters + indirizzo di ritorno + dich_locali
+		// Generiamo il codice per i parametri
+		StringBuilder parCode = new StringBuilder();
+		for (int i = 0; i < parameters.size() ; i++)
+			parCode.append(parameters.get(i).codeGeneration()).append("pushr A0\n");
+
+		// Prepariamo la deferenziazione
+		StringBuilder getAR= new StringBuilder();
+		for (int i = 0; i < nesting - entry.getnesting() ; i++)
+			getAR.append("store T1 0(T1) \n");
 
 		return    "pushr FP \n"			// carico il frame pointer
 				+ "move SP FP \n"
-				+ "addi FP 1 \n"	// salvo in FP il puntatore all'indirizzo del frame pointer caricato
+				+ "addi FP 1 \n"	    // salvo in FP il puntatore all'indirizzo del frame pointer caricato
 				+ "move AL T1\n"		// risalgo la catena statica
 				+ getAR
 				+ "pushr T1 \n"			// salvo sulla pila l'access link statico
 				+ parCode 				// calcolo i parametri attuali con l'access link del chiamante
 				+ "move FP AL \n"
 				+ "subi AL 1 \n"
-				+ "jsub " + entry.getlabel() + "\n" ;
+				+ "jsub " + entry.getlabel() + "\n";
+
   	}
 
 	public String toPrint(String s) {  //

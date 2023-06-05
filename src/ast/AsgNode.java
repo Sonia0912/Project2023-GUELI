@@ -59,10 +59,10 @@ public class AsgNode implements Node{
         String getAR = "";
         for (int i = 0; i < nesting - stentry.getnesting(); i++)
             getAR += "store T1 0(T1) \n";
-        return exp.codeGeneration() +
-                "move AL T1 \n"
+        return    exp.codeGeneration()
+                + "move AL T1 \n"
                 + getAR  //risalgo la catena statica
-                + "subi T1 " + stentry.getoffset() +"\n" //metto offset sullo stack
+                + "subi T1 " + stentry.getoffset() + "\n"
                 + "load A0 0(T1) \n" ;
     }
 

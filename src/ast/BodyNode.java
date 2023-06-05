@@ -22,9 +22,11 @@ public class BodyNode implements Node{
     }
 
     public ArrayList<SemanticError> checkSemantics(SymbolTable ST, int _nesting) {
-        nesting = _nesting + 1 ;
-        HashMap<String, STentry> H = new HashMap<String, STentry>();
-        ST.add(H);
+        //nesting = _nesting + 1;
+        nesting = _nesting;
+
+        //HashMap<String, STentry> H = new HashMap<String, STentry>();
+        //ST.add(H);
 
         //declare resulting list
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
@@ -37,14 +39,13 @@ public class BodyNode implements Node{
             errors.addAll(s.checkSemantics(ST, nesting)) ;
         }
 
-        //check semantics in the exp body
         if(exp != null){
             errors.addAll(exp.checkSemantics(ST, nesting)) ;
         }
-        //clean the scope, we are leaving a let scope
+
         //ST.remove();
 
-        //return the result
+
         return errors;
     }
 
@@ -56,30 +57,30 @@ public class BodyNode implements Node{
         return new VoidType();
     }
 
-    // TODO
     public String codeGeneration() {
-        String declCode = "";
+        String declCode = "addi SP " + dec.size() + "\n";
         String stmsCode = "";
         String expCode = "";
-        for (Node d: dec)
-            declCode += d.codeGeneration();
         for (Node s: stm)
             stmsCode += s.codeGeneration();
+            //stmsCode += "pushr A0 \n";
         if(exp != null)
             expCode = exp.codeGeneration();
 
-        return    //"pushr FP \n"
-                // "move SP FP \n"
-                 //"addi FP 1 \n"
-               // + "popr FP \n"
-               // + "move AL T1 \n"
-               // + "pushr T1 \n"
-               // + "move FP AL \n"
-              //  + "subi AL 1 \n"
-               // + "popr AL \n"+
-                //declCode
-                 stmsCode
-                + expCode ;
+        return    //   "pushr FP \n"
+                  // + "move SP FP \n"
+                  // + "addi FP 1 \n"
+                  // + "popr FP \n"
+                  // + "move AL T1 \n"
+                  // + "pushr T1 \n"
+                  // + "move FP AL \n"
+                  // + "subi AL 1 \n"
+                  // + "popr AL \n"
+
+                   "pushr A0 \n" +
+                  stmsCode
+                + expCode
+                + declCode;
     }
 
     public String toPrint(String s) {

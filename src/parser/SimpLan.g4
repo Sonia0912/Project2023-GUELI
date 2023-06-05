@@ -48,7 +48,7 @@ exp    :  INTEGER                                                          #intV
        | left=exp (and='&&') right=exp                                     #andExp
        | left=exp (or='||') right=exp                                      #orExp
        | 'if' '('cond=exp ')' '{' (stm)* exp '}'
-       else='else' '{' (stm)* exp '}'                                       #ifExp
+       else='else' '{' (stm)* exp '}'                                      #ifExp
        | '(' exp ')'                                                       #pareExp
        | ID '(' (exp (',' exp)* )? ')'                                     #funExp
        ;
