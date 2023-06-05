@@ -20,10 +20,10 @@ public class SVMLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, LOAD=4, STORE=5, STOREI=6, MOVE=7, ADD=8, ADDI=9, 
-		SUB=10, SUBI=11, MUL=12, MULI=13, DIV=14, DIVI=15, PUSH=16, PUSHR=17, 
-		POP=18, POPR=19, BRANCH=20, BRANCHEQ=21, BRANCHLESSEQ=22, JUMPSUB=23, 
-		RETURNSUB=24, HALT=25, REG=26, LABEL=27, NUMBER=28, WHITESP=29, LINECOMENTS=30, 
+		T__0=1, T__1=2, T__2=3, LOAD=4, STORE=5, STOREI=6, MOVE=7, ADD=8, ADDI=9,
+		SUB=10, SUBI=11, MUL=12, MULI=13, DIV=14, DIVI=15, PUSH=16, PUSHR=17,
+		POP=18, POPR=19, BRANCH=20, BRANCHEQ=21, BRANCHLESSEQ=22, JUMPSUB=23,
+		RETURNSUB=24, HALT=25, REG=26, LABEL=27, NUMBER=28, WHITESP=29, LINECOMENTS=30,
 		ERR=31;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
@@ -35,9 +35,9 @@ public class SVMLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"T__0", "T__1", "T__2", "LOAD", "STORE", "STOREI", "MOVE", "ADD", "ADDI", 
-			"SUB", "SUBI", "MUL", "MULI", "DIV", "DIVI", "PUSH", "PUSHR", "POP", 
-			"POPR", "BRANCH", "BRANCHEQ", "BRANCHLESSEQ", "JUMPSUB", "RETURNSUB", 
+			"T__0", "T__1", "T__2", "LOAD", "STORE", "STOREI", "MOVE", "ADD", "ADDI",
+			"SUB", "SUBI", "MUL", "MULI", "DIV", "DIVI", "PUSH", "PUSHR", "POP",
+			"POPR", "BRANCH", "BRANCHEQ", "BRANCHLESSEQ", "JUMPSUB", "RETURNSUB",
 			"HALT", "REG", "LABEL", "NUMBER", "WHITESP", "LINECOMENTS", "ERR"
 		};
 	}
@@ -45,18 +45,18 @@ public class SVMLexer extends Lexer {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "')'", "':'", "'load'", "'store'", "'storei'", "'move'", 
-			"'add'", "'addi'", "'sub'", "'subi'", "'mul'", "'muli'", "'div'", "'divi'", 
-			"'push'", "'pushr'", "'pop'", "'popr'", "'b'", "'beq'", "'bleq'", "'jsub'", 
+			null, "'('", "')'", "':'", "'load'", "'store'", "'storei'", "'move'",
+			"'add'", "'addi'", "'sub'", "'subi'", "'mul'", "'muli'", "'div'", "'divi'",
+			"'push'", "'pushr'", "'pop'", "'popr'", "'b'", "'beq'", "'bleq'", "'jsub'",
 			"'rsub'", "'halt'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, "LOAD", "STORE", "STOREI", "MOVE", "ADD", "ADDI", 
-			"SUB", "SUBI", "MUL", "MULI", "DIV", "DIVI", "PUSH", "PUSHR", "POP", 
-			"POPR", "BRANCH", "BRANCHEQ", "BRANCHLESSEQ", "JUMPSUB", "RETURNSUB", 
+			null, null, null, null, "LOAD", "STORE", "STOREI", "MOVE", "ADD", "ADDI",
+			"SUB", "SUBI", "MUL", "MULI", "DIV", "DIVI", "PUSH", "PUSHR", "POP",
+			"POPR", "BRANCH", "BRANCHEQ", "BRANCHLESSEQ", "JUMPSUB", "RETURNSUB",
 			"HALT", "REG", "LABEL", "NUMBER", "WHITESP", "LINECOMENTS", "ERR"
 		};
 	}
@@ -132,7 +132,7 @@ public class SVMLexer extends Lexer {
 	private void ERR_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 0:
-			 System.err.println("Invalid char: "+ getText()); lexicalErrors++;  
+			 System.err.println("Invalid char: "+ getText()); lexicalErrors++;
 			break;
 		}
 	}

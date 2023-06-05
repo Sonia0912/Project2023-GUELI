@@ -139,6 +139,18 @@ public class SVMVisitorImpl extends SVMBaseVisitor<Void> {
 	            labelRef.put(i, (ctx.LABEL() != null ? ctx.LABEL().toString() : null));
 	            i = i+1 ;
                 break;
+			case SVMLexer.BGTE:
+				code[i] = new AssemblyClass(SVMParser.BGTE, ctx.REG(0).toString(), ctx.REG(1).toString(), ctx.LABEL().toString());
+				i = i+1 ;
+				labelRef.put(i, (ctx.LABEL() != null ? ctx.LABEL().toString() : null));
+				i = i+1 ;
+				break;
+			case SVMLexer.BL:
+				code[i] = new AssemblyClass(SVMParser.BL, ctx.REG(0).toString(), ctx.REG(1).toString(), ctx.LABEL().toString());
+				i = i+1 ;
+				labelRef.put(i, (ctx.LABEL() != null ? ctx.LABEL().toString() : null));
+				i = i+1 ;
+				break;
 			case SVMLexer.JUMPSUB:
 				code[i] = new AssemblyClass(SVMParser.JUMPSUB, ctx.LABEL().toString(), null, null);
 	            labelRef.put(i, ctx.LABEL().toString() );

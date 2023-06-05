@@ -80,7 +80,6 @@ public class Test {
 					System.out.println(type.toPrint("Type checking is OK! Type of the program is: "));
 
 
-
 				// CODE GENERATION  prova.SimpLan.asm
 				String code=ast.codeGeneration(); 
 				BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm")); 
@@ -105,7 +104,6 @@ public class Test {
 				System.out.println("Starting Virtual Machine...");
 				ExecuteVM vm = new ExecuteVM(visitorSVM.code);
 				vm.cpu();
-
 
 				}
 		}

@@ -36,6 +36,8 @@ instruction:
     	| BRANCHLESSEQ REG REG LABEL 	// = if REGleft <= REGright => ip = LABEL
     	| JUMPSUB LABEL
     	| RETURNSUB REG
+    	| BGTE REG REG LABEL
+    	| BL REG REG LABEL
     	| l=LABEL ':'
  	  	| HALT
 	  ) ;
@@ -65,6 +67,8 @@ BRANCHEQ :'beq' 	;
 BRANCHLESSEQ:'bleq' ;
 JUMPSUB	 : 'jsub' 	;
 RETURNSUB: 'rsub'	;
+BGTE     : 'bgte'   ;
+BL       : 'bl'     ;
 HALT	 : 'halt' ;	
 
 REG 	 : 'A0' | 'RA' | 'FP' | 'SP' | 'AL' | 'T1' | 'T2' ;

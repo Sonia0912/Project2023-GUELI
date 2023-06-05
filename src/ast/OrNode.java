@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import evaluator.SimpLanlib;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
 
@@ -34,12 +35,12 @@ public class OrNode implements Node {
 
 
     public String codeGeneration() {
-        return left.codeGeneration()+
-                "pushr A0 \n" +
-                right.codeGeneration()+
-                "popr T1 \n" +
-                "ADD A0 T1 \n" +
-                "popr A0 \n" ;
+        String exit = SimpLanlib.freshLabel();
+        return left.codeGeneration() +
+                "storei T1 1\n" +
+                "beq A0 T1 " + exit +"\n"+
+                right.codeGeneration() +
+                exit + ": \n";
     }
 
     public String toPrint(String s) {
