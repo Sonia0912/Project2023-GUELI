@@ -8,23 +8,38 @@ import semanticanalysis.SymbolTable;
 
 public class IfExpNode implements Node {
 	private Node guard ;
-	private Node thenbranch ;
-	private Node elsebranch ;
+	private Node thenExp ;
+	private Node elseExp ;
+
+	private ArrayList<Node> thenStms;
+	private ArrayList<Node> elseStms;
   
-	public IfExpNode (Node _guard, Node _thenbranch, Node _elsebranch) {
-    	guard = _guard ;
-    	thenbranch = _thenbranch ;
-    	elsebranch = _elsebranch ;
+
+
+    public IfExpNode(Node condExp, ArrayList<Node> _thenStms, Node _thenExp, ArrayList<Node> _elseStms, Node _elseExp) {
+		guard = condExp;
+		thenExp = _thenExp;
+		elseExp = _elseExp;
+		thenStms = _thenStms;
+		elseStms = _elseStms;
+
     }
-  
-   @Override
+
+    @Override
   public ArrayList<SemanticError> checkSemantics(SymbolTable ST, int _nesting) {
 	  ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
 	  errors.addAll(guard.checkSemantics(ST, _nesting));
 
-	  errors.addAll(thenbranch.checkSemantics(ST, _nesting));
-	  errors.addAll(elsebranch.checkSemantics(ST, _nesting));
+		for (Node then: thenStms) {
+			errors.addAll(then.checkSemantics(ST,_nesting));
+		}
+		for (Node i: elseStms) {
+			errors.addAll(i.checkSemantics(ST,_nesting));
+		}
+
+	  errors.addAll(thenExp.checkSemantics(ST, _nesting));
+	  errors.addAll(elseExp.checkSemantics(ST, _nesting));
 
 	  return errors;
   }
@@ -32,8 +47,21 @@ public class IfExpNode implements Node {
 	public Type typeCheck() {
 		if (guard.typeCheck() instanceof BoolType) {
 
-			Type thenType = thenbranch.typeCheck() ;
-			Type elseType = elsebranch.typeCheck() ;
+			for (Node a: thenStms) {
+				if(a.typeCheck().equals(ErrorType.class)){
+					return new ErrorType();
+				}
+			}
+
+			for (Node b: elseStms) {
+				if(b.typeCheck().equals(ErrorType.class)){
+					return new ErrorType();
+				}
+			}
+
+
+			Type thenType = thenExp.typeCheck() ;
+			Type elseType = elseExp.typeCheck() ;
 
 			if (thenType.getClass().equals(elseType.getClass()))
         		return thenType;
@@ -50,20 +78,42 @@ public class IfExpNode implements Node {
   	public String codeGeneration() {
   		String lthen = SimpLanlib.freshLabel(); 
   		String lend = SimpLanlib.freshLabel();
+		StringBuilder thenStmString = new StringBuilder();
+		StringBuilder elseStmString = new StringBuilder();
+
+		for (Node a: thenStms) {
+			thenStmString.append(a.codeGeneration());
+		}
+
+		for (Node b: elseStms) {
+			elseStmString.append(b.codeGeneration());
+		}
+
   		return guard.codeGeneration() +
-			 "storei T1 1 \n" +
-			 "beq A0 T1 "+ lthen + "\n" +			  
-			 elsebranch.codeGeneration() +
+			 "storei T1 0 \n" +
+			 "beq A0 T1 "+ lthen + "\n" +
+			 thenStmString + thenExp.codeGeneration()+
 			 "b " + lend + "\n" +
 			 lthen + ":\n" +
-			 thenbranch.codeGeneration() +
-	         lend + ":\n" ; 
+			 elseStmString  + elseExp.codeGeneration()+
+			 lend + ":\n" ;
   	}
 
   	public String toPrint(String s) {
-		String thenString = thenbranch.toPrint(s+"  ");
-		String elseString = elsebranch.toPrint(s+"  ");
-	    return s+"If\n" + guard.toPrint(s+"  ") + thenString  + elseString ;
+		String thenStmString = "";
+		String elseStmString = "";
+
+		for (Node a: thenStms) {
+			thenStmString += a.toPrint("");
+		}
+
+		for (Node b: elseStms) {
+			elseStmString += b.toPrint("");
+		}
+
+		String thenString = thenExp.toPrint(s+"  ");
+		String elseString = elseExp.toPrint(s+"  ");
+	    return s+"If\n" + guard.toPrint(s+"  ") + thenStmString + thenString + elseStmString  + elseString ;
 	}
 	  
 }  

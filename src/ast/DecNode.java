@@ -32,7 +32,7 @@ public class DecNode implements Node {
 
 	@Override
 	public String codeGeneration() {
-		return null;
+		return "";
 	}
 
 	public String toPrint(String s) {

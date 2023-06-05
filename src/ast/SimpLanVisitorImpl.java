@@ -102,6 +102,8 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 			_param.add(visit(vc));
 		}
 
+
+		//non andiamo a settare entry node in CallNode
 		return new CallNode(ctx.ID().getText(),_param);
 	}
 
@@ -116,7 +118,9 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 		for(ParseTree i : ctx.children) {
 			if(i.getText().equals("else"))
 				elseBranch = true;
-			if(i.getClass().equals(parser.SimpLanParser.AsgContext.class)) {
+			if(i.getClass().equals(parser.SimpLanParser.AsgContext.class) ||
+					i.getClass().equals(SimpLanParser.IfStmContext.class) ||
+					i.getClass().equals(SimpLanParser.InvFunContext.class)) {
 				if(!elseBranch)
 					thenStms.add(visit(i));
 				else
@@ -185,11 +189,55 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 
 	@Override
 	public Node visitIfExp(SimpLanParser.IfExpContext ctx) {
-		Node condExp = visit (ctx.cond);
-		Node thenExp = visit (ctx.thenBranch);
-		Node elseExp = visit (ctx.elseBranch);
 
-		return new IfExpNode(condExp, thenExp, elseExp);
+		Node condExp = visit (ctx.cond);
+
+		ArrayList<Node> thenStms = new ArrayList<Node>();
+		ArrayList<Node> elseStms = new ArrayList<Node>();
+		Node thenExp = null;
+		Node elseExp = null;
+
+		boolean elseBranch = false;
+		for(ParseTree i : ctx.children) {
+			if(i.getText().equals("else"))
+				elseBranch = true;
+			if(i.getClass().equals(parser.SimpLanParser.AsgContext.class) ||
+					i.getClass().equals(SimpLanParser.IfStmContext.class) ||
+					i.getClass().equals(SimpLanParser.InvFunContext.class)) {
+				if(!elseBranch)
+					thenStms.add(visit(i));
+				else
+					elseStms.add(visit(i));
+				}else if(i.getClass().equals(SimpLanParser.ExpContext.class) ||
+					i.getClass().equals(SimpLanParser.PlusExpContext.class) ||
+					i.getClass().equals(SimpLanParser.MinusExpContext.class) ||
+					i.getClass().equals(SimpLanParser.EqExpContext.class) ||
+					i.getClass().equals(SimpLanParser.NegExpContext.class) ||
+					i.getClass().equals(SimpLanParser.CondExpContext.class) ||
+					i.getClass().equals(SimpLanParser.AndExpContext.class) ||
+					i.getClass().equals(SimpLanParser.OrExpContext.class) ||
+					i.getClass().equals(SimpLanParser.MolExpContext.class) ||
+					i.getClass().equals(SimpLanParser.IfExpContext.class) ||
+					i.getClass().equals(SimpLanParser.DivExpContext.class) ||
+					i.getClass().equals(SimpLanParser.PareExpContext.class) ||
+					i.getClass().equals(SimpLanParser.SingExpContext.class) ||
+					i.getClass().equals(SimpLanParser.VarExpContext.class) ||
+					i.getClass().equals(SimpLanParser.IntValContext.class) ||
+					i.getClass().equals(SimpLanParser.BoolValContext.class) ||
+					i.getClass().equals(SimpLanParser.FunExpContext.class)
+			){
+				if(!elseBranch)
+					thenExp = (visit(i));
+				else
+					elseExp = (visit(i));
+			}
+
+			}
+
+		return  new IfExpNode(condExp,thenStms,thenExp,elseStms,elseExp);
+
+
+
 	}
 
 	@Override

@@ -64,20 +64,21 @@ public class BodyNode implements Node{
         for (Node d: dec)
             declCode += d.codeGeneration();
         for (Node s: stm)
-            declCode += s.codeGeneration();
+            stmsCode += s.codeGeneration();
         if(exp != null)
             expCode = exp.codeGeneration();
-        return    "pushr FP \n"
-                + "move SP FP \n"
-                + "addi FP 1 \n"
-                + "popr FP \n"
-                + "move AL T1 \n"
-                + "pushr T1 \n"
-                + "move FP \n"
-                + "subi AL 1 \n"
-                + "popr AL \n"
-                + declCode
-                + stmsCode
+
+        return    //"pushr FP \n"
+                // "move SP FP \n"
+                 //"addi FP 1 \n"
+               // + "popr FP \n"
+               // + "move AL T1 \n"
+               // + "pushr T1 \n"
+               // + "move FP AL \n"
+              //  + "subi AL 1 \n"
+               // + "popr AL \n"+
+                //declCode
+                 stmsCode
                 + expCode ;
     }
 

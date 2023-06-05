@@ -71,15 +71,24 @@ public class ProgDecStmNode implements Node {
 
     // TODO
     public String codeGeneration() {
+        String expCode = "";
+        if(exp != null){
+            expCode = exp.codeGeneration();
+        }
         String declCode="";
+        String stmCode="";
         for (Node d: dec)
             declCode += d.codeGeneration();
+        for (Node s: stm)
+            stmCode += s.codeGeneration();
+
         return  "move SP FP  \n"
                 + "pushr FP \n"
                 + "move SP AL \n"
                 + "pushr AL \n"
                 + declCode
-                + exp.codeGeneration()
+                + stmCode
+                + expCode
                 + "halt\n" +
                 SimpLanlib.getCode();
     }

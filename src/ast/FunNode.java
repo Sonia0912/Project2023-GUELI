@@ -62,18 +62,13 @@ public class FunNode implements Node {
 			ST.insert(id, type, nesting, flabel) ;
 
 			if(body != null) {
-
-				errors.addAll(body.checkSemantics(ST, nesting+1));
-
-
+				errors.addAll(body.checkSemantics(ST, nesting));
 			}
-
-
 			ST.remove();
-
+			//ST.union(oldST,ST);
 			ST.restore(oldST.getSymbol_table(), oldST.getOffset());
 			
-			flabel = SimpLanlib.freshFunLabel() ;
+			//flabel = SimpLanlib.freshFunLabel() ;
 			ST.insert(id, type, nesting, flabel) ;
 		}
 		return errors ; // problemi con la generazione di codice!
@@ -92,15 +87,12 @@ public class FunNode implements Node {
 
   	}
 
-	// TODO
   	public String codeGeneration() {
 	  
-	    String declCode = "" ;
-	     
+
 	    SimpLanlib.putCode(
 	    			flabel + ":\n"
 	    			+ "pushr RA \n"
-	    			+ declCode
 	    			+ body.codeGeneration()
 	    			+ "popr RA \n"
 	    			+ "addi SP " + 	parlist.size() + "\n"
@@ -112,7 +104,7 @@ public class FunNode implements Node {
 	    			+ "rsub RA \n" 
 	    		);
 	    
-		return "push "+ flabel +"\n";
+		return  "push "+ flabel +"\n";
   	}
   
   	public String toPrint(String s) {

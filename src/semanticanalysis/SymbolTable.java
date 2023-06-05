@@ -123,9 +123,14 @@ public class SymbolTable {
 			HashMap<String, STentry> newHM = new HashMap<String, STentry>(newST.get(i));
 			for (HashMap.Entry<String, STentry> e : newHM.entrySet()) {
 				currString = e.getKey();
-				currSTentry = new STentry(e.getValue().gettype(), e.getValue().getoffset(), e.getValue().getnesting());
+				if(e.getValue().getlabel() != null){
+					currSTentry = new STentry(e.getValue().gettype(), e.getValue().getoffset(), e.getValue().getnesting(), e.getValue().getlabel());
+				}else{
+					currSTentry = new STentry(e.getValue().gettype(), e.getValue().getoffset(), e.getValue().getnesting());
+				}
 				currSTentry.setInitialized(e.getValue().getInitialized());
 				currHM.put(currString, currSTentry);
+
 			}
 			currAL.add(currHM);
 		}
