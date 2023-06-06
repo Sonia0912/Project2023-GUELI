@@ -70,29 +70,31 @@ public class Test {
 				Node type = ast.typeCheck(); //type-checking bottom-up 
 				if (type instanceof ErrorType)
 					System.out.println("Type checking is WRONG!");
-				else 
+				else {
 					System.out.println(type.toPrint("Type checking is OK! Type of the program is: "));
 
+					// CODE GENERATION  prova.SimpLan.asm
+					String code=ast.codeGeneration();
+					BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm"));
+					out.write(code);
+					out.close();
+					System.out.println("Code generated! Assembling and running generated code.");
 
-				// CODE GENERATION  prova.SimpLan.asm
-				String code=ast.codeGeneration(); 
-				BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm")); 
-				out.write(code);
-				out.close(); 
-				System.out.println("Code generated! Assembling and running generated code.");
+					FileInputStream isASM = new FileInputStream(fileName+".asm");
+					ANTLRInputStream inputASM = new ANTLRInputStream(isASM);
+					SVMLexer lexerASM = new SVMLexer(inputASM);
+					CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
+					SVMParser parserASM = new SVMParser(tokensASM);
 
-				FileInputStream isASM = new FileInputStream(fileName+".asm");
-				ANTLRInputStream inputASM = new ANTLRInputStream(isASM);
-				SVMLexer lexerASM = new SVMLexer(inputASM);
-				CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
-				SVMParser parserASM = new SVMParser(tokensASM);
+					SVMVisitorImpl visitorSVM = new SVMVisitorImpl();
+					visitorSVM.visit(parserASM.assembly());
 
-				SVMVisitorImpl visitorSVM = new SVMVisitorImpl();
-				visitorSVM.visit(parserASM.assembly());
+					System.out.println("Starting Virtual Machine...");
+					ExecuteVM vm = new ExecuteVM(visitorSVM.code);
+					vm.cpu();
 
-				System.out.println("Starting Virtual Machine...");
-				ExecuteVM vm = new ExecuteVM(visitorSVM.code);
-				vm.cpu();
+				}
+
 
 
 			}
