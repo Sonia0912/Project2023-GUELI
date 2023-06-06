@@ -44,7 +44,7 @@ public class OrNode implements Node {
     }
 
     public String toPrint(String s) {
-        return s + left.toPrint(s+"  ") + " \t \t \t OR \n \t"+ right.toPrint(s+"  ") ;
+        return s+"Or\n" + left.toPrint(s+"  ") + right.toPrint(s+"  ") ;
     }
 
 }

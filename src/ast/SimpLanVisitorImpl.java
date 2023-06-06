@@ -102,8 +102,6 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 			_param.add(visit(vc));
 		}
 
-
-		//non andiamo a settare entry node in CallNode
 		return new CallNode(ctx.ID().getText(),_param);
 	}
 
@@ -125,18 +123,9 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 					thenStms.add(visit(i));
 				else
 					elseStms.add(visit(i));
-
 			}
 		}
-
-		if(ctx.thenBranch != null && ctx.elseBranch != null) {
-			return new IfStmNode(condExp, thenStms, elseStms);
-		} else if(ctx.thenBranch != null && ctx.elseBranch == null ) {
-			return new IfStmNode(condExp, thenStms, null);
-		} else if(ctx.thenBranch == null && ctx.elseBranch != null ) {
-			return new IfStmNode(condExp, null, elseStms);
-		} else
-			return new IfStmNode(condExp, null, null);
+		return new IfStmNode(condExp, thenStms, elseStms);
 	}
 
 	@Override
@@ -225,18 +214,16 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 					i.getClass().equals(SimpLanParser.IntValContext.class) ||
 					i.getClass().equals(SimpLanParser.BoolValContext.class) ||
 					i.getClass().equals(SimpLanParser.FunExpContext.class)
-			){
-				if(!elseBranch)
-					thenExp = (visit(i));
-				else
-					elseExp = (visit(i));
-			}
+				){
+					if(!elseBranch)
+						thenExp = (visit(i));
+					else
+						elseExp = (visit(i));
+				}
 
 			}
 
 		return  new IfExpNode(condExp,thenStms,thenExp,elseStms,elseExp);
-
-
 
 	}
 
@@ -267,18 +254,13 @@ public class SimpLanVisitorImpl extends SimpLanBaseVisitor<Node> {
 
 	@Override
 	public Node visitFunExp(SimpLanParser.FunExpContext ctx) {
-		//this corresponds to a function invocation
-		//declare the result
 		Node res;
-		//get the invocation arguments
 		ArrayList<Node> args = new ArrayList<Node>();
 		for (ExpContext exp : ctx.exp())
 			args.add(visit(exp));
-		// this is ad-hoc for this project...
 		if(ctx.ID().getText().equals("print"))
 			res = new PrintNode(args.get(0));
 		else
-			//instantiate the invocation
 			res = new CallNode(ctx.ID().getText(), args);
 
 		return res;

@@ -36,7 +36,7 @@ public class SymbolTable {
 		return T ;
 	}
 
-	public Integer nslookup(String id) {
+/*	public Integer nslookup(String id) {
 		int n = symbol_table.size() - 1 ;
 		boolean found = false ;
 		while ((n >= 0) && !found) {
@@ -45,11 +45,11 @@ public class SymbolTable {
 			else n = n-1 ;
 		}
 		return n ;
-	}
+	}*/
 
 	public void add(HashMap<String,STentry> H) {
 		symbol_table.add(H) ;
-		offset.add(1) ;		// si inizia da 2 perche` prima ci sonop FP e AL
+		offset.add(1) ;		// si inizia da 2 perche` prima ci sono FP e AL
 	}
 	
 	public void remove() {
@@ -75,22 +75,22 @@ public class SymbolTable {
 		STentry idtype = new STentry(type,offs,_nesting, _label) ;
 		H.put(id,idtype) ;
 		symbol_table.add(H) ;
-		if (type.getClass().equals((new BoolType()).getClass()))
+		if (type.getClass().equals(BoolType.class))
 			offs = offs + 1 ; // we always increment the offset by 1 otherwise we need ad-hoc
 							  // bytecode operations
-		else if (type.getClass().equals((new IntType()).getClass()))
+		else if (type.getClass().equals(IntType.class))
 			offs = offs + 1 ;
 		else offs = offs + 1 ;
 		offset.add(offs) ;	
 	}
 
-	public void increaseoffset() {
+/*	public void increaseoffset() {
 		int n = offset.size() - 1 ;
 		int offs = offset.get(n) ;
 		offset.remove(n) ;
 		offs = offs + 1 ;
 		offset.add(offs) ;	
-	}
+	}*/
 
 	public void printST() {
 		System.out.println("******");
@@ -157,7 +157,8 @@ public class SymbolTable {
 						// Controlliamo se inizializzano la stessa var
 						if(e1.getKey().equals(e2.getKey())) {
 							STentry currEntry = this.lookup(e1.getKey());
-							if(currEntry != null && e1.getValue().getInitialized() && e2.getValue().getInitialized()) {
+							// Caso pessimo: almeno uno dei due l'ha inizializzata -> e' inizializzata
+							if(currEntry != null && e1.getValue().getInitialized() || e2.getValue().getInitialized()) {
 								currEntry.setInitialized(true);
 							}
 						}
@@ -168,4 +169,5 @@ public class SymbolTable {
 			}
 		}
 	}
+
 }

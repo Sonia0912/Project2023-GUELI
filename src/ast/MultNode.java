@@ -42,7 +42,7 @@ public class MultNode implements Node {
     }
 
     public String toPrint(String s) {
-        return s + left.toPrint(s+"  ") + " \t \t \t * \n \t"+ right.toPrint(s+"  ") ;
+        return s+"Mult\n" + left.toPrint(s+"  ") + right.toPrint(s+"  ") ;
     }
         
 }  

@@ -2,7 +2,6 @@ package mainPackage;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,16 +16,11 @@ import ast.ErrorType;
 import ast.Node;
 import ast.SVMVisitorImpl;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
-
 public class Test {
 
 	public static void main(String[] args) throws Exception {
 
 		String fileName = "prova.simplan";
-
-/*		CharStream input = CharStreams.fromFileName(fileName);
-		SimpLanLexer lexer = new SimpLanLexer(input);*/
 
 		FileInputStream is = new FileInputStream(fileName);
 		ANTLRInputStream input = new ANTLRInputStream(is);
@@ -93,13 +87,8 @@ public class Test {
 				CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
 				SVMParser parserASM = new SVMParser(tokensASM);
 
-				//parserASM.assembly();
-
 				SVMVisitorImpl visitorSVM = new SVMVisitorImpl();
-				visitorSVM.visit(parserASM.assembly()); 
-
-				//System.out.println("You had: "+lexerASM.lexicalErrors+" lexical errors and "+parserASM.getNumberOfSyntaxErrors()+" syntax errors.");
-				//if (lexerASM.lexicalErrors>0 || parserASM.getNumberOfSyntaxErrors()>0) System.exit(1);
+				visitorSVM.visit(parserASM.assembly());
 
 				System.out.println("Starting Virtual Machine...");
 				ExecuteVM vm = new ExecuteVM(visitorSVM.code);

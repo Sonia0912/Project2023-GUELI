@@ -37,11 +37,9 @@ public class ProgDecStmNode implements Node {
             errors.addAll(s.checkSemantics(ST, nesting)) ;
         }
 
-        if(exp != null)//check semantics in the exp body
+        if(exp != null)
             errors.addAll(exp.checkSemantics(ST, nesting));
 
-        //System.out.println("-- TableSymbol of ProDecStm --");
-        //ST.printST();
         //clean the scope, we are leaving a let scope
         ST.remove();
 
@@ -71,9 +69,8 @@ public class ProgDecStmNode implements Node {
 
     public String codeGeneration() {
         String expCode = "";
-        if(exp != null){
+        if(exp != null)
             expCode = exp.codeGeneration();
-        }
         String declCode="";
         String stmCode="";
         for (Node d: dec)

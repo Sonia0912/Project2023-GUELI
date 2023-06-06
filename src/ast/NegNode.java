@@ -16,7 +16,9 @@ public class NegNode implements Node {
     }
 
     public ArrayList<SemanticError> checkSemantics(SymbolTable ST, int _nesting) {
-        return  exp.checkSemantics(ST,_nesting);
+        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        errors.addAll(exp.checkSemantics(ST,_nesting));
+        return errors;
     }
 
     public Type typeCheck () {
@@ -29,7 +31,17 @@ public class NegNode implements Node {
     }
 
     public String codeGeneration() {
-        return exp.codeGeneration() ;
+        String label = SimpLanlib.freshLabel();
+        String exit = SimpLanlib.freshLabel();
+        return    exp.codeGeneration()
+                + "storei T1 0 \n"
+                + "beq A0 T1 " + label + "\n"
+                + "storei A0 0 \n"
+                + "b " + exit + "\n"
+                + label + ":\n"
+                + "storei A0 1 \n"
+                + exit + ":\n"
+                ;
     }
 
     public String toPrint(String s){

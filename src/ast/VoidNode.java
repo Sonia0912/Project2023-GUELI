@@ -19,7 +19,7 @@ public class VoidNode implements Node {
 
     public String codeGeneration() {
         return "";
-    } // TODO?
+    }
 
     public String toPrint(String s) {
         return s + "void \n";

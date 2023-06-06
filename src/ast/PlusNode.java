@@ -30,8 +30,7 @@ public class PlusNode implements Node {
 			  System.out.println("Type Error: Non integers in addition") ;
 			  return new ErrorType() ;
 		  }
-	}  
-	  
+	}
   
 	public String codeGeneration() {
 		return left.codeGeneration()+

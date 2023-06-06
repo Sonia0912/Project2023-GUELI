@@ -7,11 +7,6 @@ import semanticanalysis.SymbolTable;
 import java.util.ArrayList;
 
 public class AsgNode implements Node{
-    /*
-    X = exp;
-    1. verifica che X sia sia stata dichiarata;
-    2. controllo che il tipo che ritorna exp sia lo stesso di X
-     */
 
     private String id;
     private STentry stentry ;
@@ -35,15 +30,10 @@ public class AsgNode implements Node{
         // Controlliamo che la variabile esista
         if (var == null)
             errors.add(new SemanticError("Var " + id + " never declared"));
-        else
-            // Controlliamo che il tipo sia corretto
-            if (!var.gettype().getClass().equals(exp.typeCheck().getClass()))
-                errors.add(new SemanticError("Var " + id + " type doesn't correspond to exp type"));
-            else {
-                stentry = ST.lookup(id) ;
-                var.setInitialized(true);
-                //ST.update(id,var);
-            }
+        else {
+            stentry = ST.lookup(id) ;
+            var.setInitialized(true);
+        }
 
         return errors ;
 
@@ -51,7 +41,12 @@ public class AsgNode implements Node{
 
     @Override
     public Type typeCheck() {
-        return exp.typeCheck();
+        // Controlliamo che il tipo sia corretto
+        if (!stentry.gettype().getClass().equals(exp.typeCheck().getClass())) {
+            return new ErrorType();
+        } else {
+            return exp.typeCheck();
+        }
     }
 
     @Override
@@ -63,7 +58,7 @@ public class AsgNode implements Node{
                 + "move AL T1 \n"
                 + getAR  //risalgo la catena statica
                 + "subi T1 " + stentry.getoffset() + "\n"
-                + "load A0 0(T1) \n" ;
+                + "load A0 0(T1) \n";
     }
 
     @Override

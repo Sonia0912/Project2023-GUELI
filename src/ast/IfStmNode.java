@@ -1,7 +1,6 @@
 package ast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import evaluator.SimpLanlib;
@@ -35,8 +34,6 @@ public class IfStmNode implements Node {
         SymbolTable elseST = new SymbolTable();
 
         if(thenbranches != null) {
-            HashMap<String, STentry> H = new HashMap<String, STentry>();
-            ST.add(H);
             for(Node tb : thenbranches) {
                 errors.addAll(tb.checkSemantics(ST, _nesting));
             }
@@ -44,13 +41,10 @@ public class IfStmNode implements Node {
             thenST.setSymbol_table(ST.getSymbol_table());
             thenST.setOffset(ST.getOffset());
 
-            ST.remove();
             ST.restore(oldST.getSymbol_table(), oldST.getOffset());
         }
 
         if (elsebranches != null) {
-            HashMap<String, STentry> H = new HashMap<String, STentry>();
-            ST.add(H);
             for(Node eb : elsebranches) {
                 errors.addAll(eb.checkSemantics(ST, _nesting));
             }
@@ -58,7 +52,6 @@ public class IfStmNode implements Node {
             elseST.setSymbol_table(ST.getSymbol_table());
             elseST.setOffset(ST.getOffset());
 
-            ST.remove();
             ST.restore(oldST.getSymbol_table(), oldST.getOffset());
         }
 
@@ -99,9 +92,8 @@ public class IfStmNode implements Node {
     }
 
     public String codeGeneration() {
-        String lthen = SimpLanlib.freshLabel();
+        String lelse = SimpLanlib.freshLabel();
         String lend = SimpLanlib.freshLabel();
-
         StringBuilder thenB = new StringBuilder();
         StringBuilder elseB = new StringBuilder();;
 
@@ -111,19 +103,19 @@ public class IfStmNode implements Node {
         for(Node eb : elsebranches)
             elseB.append(eb.codeGeneration());
 
-        return guard.codeGeneration() +
-                "storei T1 1 \n" +
-                "beq A0 T1 "+ lthen + "\n" +
-                elseB +
-                "b " + lend + "\n" +
-                lthen + ":\n" +
-                thenB +
-                lend + ":\n" ;
+        return    guard.codeGeneration()
+                + "storei T1 0 \n"
+                + "beq A0 T1 "+ lelse + "\n"
+                + thenB
+                + "b " + lend + "\n"
+                + lelse + ":\n"
+                + elseB
+                + lend + ":\n" ;
     }
 
     public String toPrint(String s) {
-        String thenString = " (empty then) ";
-        String elseString = " (empty else) ";
+        String thenString = "  ";
+        String elseString = "  ";
         if(thenbranches != null) {
             for(Node tb : thenbranches)
                 thenString = tb.toPrint(s+"  ");

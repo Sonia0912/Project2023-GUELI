@@ -14,7 +14,7 @@ public class SimpLanlib {
 	} 
   
 	public static void putCode(String c) { 
-		funCode+="\n"+c; //aggiunge una linea vuota di separazione prima di funzione
+		funCode+="\n"+c;
 	} 
   
 	public static String getCode() { 

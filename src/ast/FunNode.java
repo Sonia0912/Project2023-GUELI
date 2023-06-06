@@ -47,15 +47,13 @@ public class FunNode implements Node {
     	  					errors.add(new SemanticError("Parameter id " + arg.getId() + " already declared")) ;
     	  			else {
 						ST.insert(arg.getId(), arg.getType(), nesting+1, "") ;
-						//in questo modo dichiaro che i parametri della funzione saranno sicuramente inizializzati
+						// assumiamo che i parametri siano gia' inizializzati
 						STentry a = ST.lookup(arg.getId());
 						a.setInitialized(true);
 					}
 			}
 
 			type = new ArrowType(partypes, returntype) ;
-			
-			ST.increaseoffset() ; // aumentiamo di 1 l'offset per far posto al return value
 
 			// aggiungiamo la funzione anche prima di controllare il body per permettere la ricorsione
 			flabel = SimpLanlib.freshFunLabel() ;
@@ -64,18 +62,17 @@ public class FunNode implements Node {
 			if(body != null) {
 				errors.addAll(body.checkSemantics(ST, nesting+1));
 			}
+
 			ST.remove();
 
-			ST.restore(oldST.getSymbol_table(), oldST.getOffset());
-			
-			//flabel = SimpLanlib.freshFunLabel() ;
+			//ST.restore(oldST.getSymbol_table(), oldST.getOffset());
+
 			ST.insert(id, type, nesting, flabel) ;
 		}
-		return errors ; // problemi con la generazione di codice!
+		return errors ;
 	}
   
  	public Type typeCheck () {
-
 		if(body == null && returntype.getClass().equals(ast.VoidType.class)) {
 			return new VoidType() ;
 		} else if(body != null && body.typeCheck().getClass().equals(returntype.getClass())) {
@@ -84,7 +81,6 @@ public class FunNode implements Node {
 			System.out.println("Type Error: Function return type doesn't match statement/expression type") ;
 			return new ErrorType() ;
 		}
-
   	}
 
   	public String codeGeneration() {
@@ -105,20 +101,20 @@ public class FunNode implements Node {
   	}
   
   	public String toPrint(String s) {
-		String parlstr="";
+		StringBuilder parlstr = new StringBuilder();
 		for (Node par:parlist){
-		  parlstr += par.toPrint(s);
+		  parlstr.append(par.toPrint(s));
 		}
 		if(body != null) {
-			return s+"Fun:" + id +"\n"
-					+parlstr
+			return s+ "Fun:" + id +"\n"
+					+ parlstr
 					+ "\n"
-					+body.toPrint(s+"  ") ;
+					+ body.toPrint(s+"  ") ;
 		} else {
-			return s+"Fun:" + id +"\n"
-					+parlstr
+			return s+ "Fun:" + id +"\n"
+					+ parlstr
 					+ "\n"
-					+" (no body) " ;
+					+ " (no body) " ;
 		}
 	  }
 	  

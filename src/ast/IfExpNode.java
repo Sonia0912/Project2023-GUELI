@@ -22,7 +22,6 @@ public class IfExpNode implements Node {
 		elseExp = _elseExp;
 		thenStms = _thenStms;
 		elseStms = _elseStms;
-
     }
 
     @Override
@@ -40,35 +39,27 @@ public class IfExpNode implements Node {
 		SymbolTable elseST = new SymbolTable();
 
 		if(!thenStms.isEmpty()) {
-			HashMap<String, STentry> HThen = new HashMap<String, STentry>();
-			ST.add(HThen);
 			for (Node then: thenStms) {
-				errors.addAll(then.checkSemantics(ST,_nesting));
+				errors.addAll(then.checkSemantics(ST, _nesting));
 			}
-			// Salviamo la ST aggiornata del then
-			thenST.setSymbol_table(ST.getSymbol_table());
-			thenST.setOffset(ST.getOffset());
-
-			ST.remove();
 		}
-
+		// Salviamo la ST aggiornata del then
+		thenST.setSymbol_table(ST.getSymbol_table());
+		thenST.setOffset(ST.getOffset());
 		errors.addAll(thenExp.checkSemantics(ST, _nesting));
+
 		ST.restore(oldST.getSymbol_table(), oldST.getOffset());
 
 		if(!elseStms.isEmpty()) {
-			HashMap<String, STentry> HElse = new HashMap<String, STentry>();
-			ST.add(HElse);
 			for (Node i: elseStms) {
-				errors.addAll(i.checkSemantics(ST,_nesting));
+				errors.addAll(i.checkSemantics(ST, _nesting));
 			}
-			// Salviamo la ST aggiornata dell'else
-			elseST.setSymbol_table(ST.getSymbol_table());
-			elseST.setOffset(ST.getOffset());
-
-			ST.remove();
 		}
-
+		// Salviamo la ST aggiornata dell'else
+		elseST.setSymbol_table(ST.getSymbol_table());
+		elseST.setOffset(ST.getOffset());
 		errors.addAll(elseExp.checkSemantics(ST, _nesting));
+
 		ST.restore(oldST.getSymbol_table(), oldST.getOffset());
 
 		// Facciamo il caso pessimo tra le due ST
@@ -81,17 +72,16 @@ public class IfExpNode implements Node {
 		if (guard.typeCheck() instanceof BoolType) {
 
 			for (Node a: thenStms) {
-				if(a.typeCheck().equals(ErrorType.class)){
+				if(a.typeCheck() instanceof ErrorType){
 					return new ErrorType();
 				}
 			}
 
 			for (Node b: elseStms) {
-				if(b.typeCheck().equals(ErrorType.class)){
+				if(b.typeCheck() instanceof ErrorType){
 					return new ErrorType();
 				}
 			}
-
 
 			Type thenType = thenExp.typeCheck() ;
 			Type elseType = elseExp.typeCheck() ;
@@ -133,16 +123,13 @@ public class IfExpNode implements Node {
   	}
 
   	public String toPrint(String s) {
-		String thenStmString = "";
-		String elseStmString = "";
+		StringBuilder thenStmString = new StringBuilder();
+		StringBuilder elseStmString = new StringBuilder();
 
-		for (Node a: thenStms) {
-			thenStmString += a.toPrint("");
-		}
-
-		for (Node b: elseStms) {
-			elseStmString += b.toPrint("");
-		}
+		for (Node a: thenStms)
+			thenStmString.append(a.toPrint("  "));
+		for (Node b: elseStms)
+			elseStmString.append(b.toPrint("  "));
 
 		String thenString = thenExp.toPrint(s+"  ");
 		String elseString = elseExp.toPrint(s+"  ");

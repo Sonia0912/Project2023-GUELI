@@ -1,12 +1,9 @@
 package ast;
 
-import evaluator.SimpLanlib;
-import semanticanalysis.STentry;
 import semanticanalysis.SemanticError;
 import semanticanalysis.SymbolTable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class BodyNode implements Node{
 
@@ -22,29 +19,18 @@ public class BodyNode implements Node{
     }
 
     public ArrayList<SemanticError> checkSemantics(SymbolTable ST, int _nesting) {
-        //nesting = _nesting + 1;
         nesting = _nesting;
 
-        //HashMap<String, STentry> H = new HashMap<String, STentry>();
-        //ST.add(H);
-
-        //declare resulting list
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
-        for (Node d : dec) {
+        for (Node d : dec)
             errors.addAll(d.checkSemantics(ST, nesting)) ;
-        }
 
-        for (Node s : stm) {
+        for (Node s : stm)
             errors.addAll(s.checkSemantics(ST, nesting)) ;
-        }
 
-        if(exp != null){
+        if(exp != null)
             errors.addAll(exp.checkSemantics(ST, nesting)) ;
-        }
-
-        //ST.remove();
-
 
         return errors;
     }
@@ -58,29 +44,22 @@ public class BodyNode implements Node{
     }
 
     public String codeGeneration() {
-        String declCode = "addi SP " + dec.size() + "\n";
+        String declCode = "";
         String stmsCode = "";
         String expCode = "";
-        for (Node s: stm)
+        for(Node d: dec) {
+            declCode += d.codeGeneration();
+        }
+        for (Node s: stm) {
             stmsCode += s.codeGeneration();
-            //stmsCode += "pushr A0 \n";
+        }
         if(exp != null)
             expCode = exp.codeGeneration();
 
-        return    //   "pushr FP \n"
-                  // + "move SP FP \n"
-                  // + "addi FP 1 \n"
-                  // + "popr FP \n"
-                  // + "move AL T1 \n"
-                  // + "pushr T1 \n"
-                  // + "move FP AL \n"
-                  // + "subi AL 1 \n"
-                  // + "popr AL \n"
-
-                   "pushr A0 \n" +
-                  stmsCode
+        return    declCode
+                + stmsCode
                 + expCode
-                + declCode;
+                + "addi SP " + dec.size() + "\n" ;
     }
 
     public String toPrint(String s) {

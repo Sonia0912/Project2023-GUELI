@@ -18,7 +18,7 @@ public class DecNode implements Node {
    		ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
   		nesting = _nesting ;
         
-        if (ST.top_lookup(id) == true) 
+        if (ST.top_lookup(id))
         	errors.add(new SemanticError("Var id " + id + " already declared"));
         else ST.insert(id, (Type) type, nesting,"") ;
  
@@ -32,11 +32,11 @@ public class DecNode implements Node {
 
 	@Override
 	public String codeGeneration() {
-		return "";
+		return "pushr A0 \n";
 	}
 
 	public String toPrint(String s) {
-		return s + "Var:" + id + type.toPrint(" ") + "\n";
+		return s + "Dec:" + id + type.toPrint(" ") + "\n";
 	}
 
 }  
