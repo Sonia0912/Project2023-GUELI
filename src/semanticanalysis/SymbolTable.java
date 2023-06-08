@@ -157,8 +157,8 @@ public class SymbolTable {
 						// Controlliamo se inizializzano la stessa var
 						if(e1.getKey().equals(e2.getKey())) {
 							STentry currEntry = this.lookup(e1.getKey());
-							// Caso pessimo: almeno uno dei due l'ha inizializzata -> e' inizializzata
-							if(currEntry != null && e1.getValue().getInitialized() || e2.getValue().getInitialized()) {
+							// Se tutti e due la inizializzano -> e' inizializzata altrimenti no
+							if(currEntry != null && e1.getValue().getInitialized() && e2.getValue().getInitialized()) {
 								currEntry.setInitialized(true);
 							}
 						}

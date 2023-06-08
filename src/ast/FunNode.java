@@ -65,7 +65,7 @@ public class FunNode implements Node {
 
 			ST.remove();
 
-			//ST.restore(oldST.getSymbol_table(), oldST.getOffset());
+			ST.restore(oldST.getSymbol_table(), oldST.getOffset());
 
 			ST.insert(id, type, nesting, flabel) ;
 		}

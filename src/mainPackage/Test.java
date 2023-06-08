@@ -20,6 +20,9 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 
+		// mettere a false se non si vuole controllare la semantica
+		boolean doCheckSemantics = true;
+
 		String fileName = "prova.simplan";
 
 		FileInputStream is = new FileInputStream(fileName);
@@ -59,11 +62,16 @@ public class Test {
 
 			SymbolTable ST = new SymbolTable();	
 			ArrayList<SemanticError> errors = ast.checkSemantics(ST, 0);
-			if(errors.size()>0){
+			if(errors.size() > 0 && doCheckSemantics){
 				System.out.println("You had: " + errors.size() + " errors:");
 				for(SemanticError e : errors)
 					System.out.println("\t" + e);
 			} else {
+				if(errors.size() > 0) {
+					System.out.println("You had: " + errors.size() + " warnings:");
+					for(SemanticError e : errors)
+						System.out.println("\t" + e);
+				}
 				System.out.println("Visualizing AST...");
 				System.out.println(ast.toPrint(""));
 
@@ -74,13 +82,13 @@ public class Test {
 					System.out.println(type.toPrint("Type checking is OK! Type of the program is: "));
 
 					// CODE GENERATION  prova.SimpLan.asm
-					String code=ast.codeGeneration();
-					BufferedWriter out = new BufferedWriter(new FileWriter(fileName+".asm"));
+					String code = ast.codeGeneration();
+					BufferedWriter out = new BufferedWriter(new FileWriter(fileName + ".asm"));
 					out.write(code);
 					out.close();
 					System.out.println("Code generated! Assembling and running generated code.");
 
-					FileInputStream isASM = new FileInputStream(fileName+".asm");
+					FileInputStream isASM = new FileInputStream(fileName + ".asm");
 					ANTLRInputStream inputASM = new ANTLRInputStream(isASM);
 					SVMLexer lexerASM = new SVMLexer(inputASM);
 					CommonTokenStream tokensASM = new CommonTokenStream(lexerASM);
@@ -92,10 +100,7 @@ public class Test {
 					System.out.println("Starting Virtual Machine...");
 					ExecuteVM vm = new ExecuteVM(visitorSVM.code);
 					vm.cpu();
-
 				}
-
-
 
 			}
 		}
