@@ -57,6 +57,7 @@ public class Test {
 		} else {
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
 			SimpLanParser parser = new SimpLanParser(tokens);
+
 			SimpLanVisitorImpl visitor = new SimpLanVisitorImpl();
 			Node ast = visitor.visit(parser.prog()); //generazione AST
 

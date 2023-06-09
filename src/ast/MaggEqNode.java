@@ -27,7 +27,7 @@ public class MaggEqNode implements Node {
         if ((left.typeCheck() instanceof IntType) && (right.typeCheck() instanceof IntType) )
             return new BoolType() ;
         else {
-            System.out.println("Type Error: Non boolean in greater than or equal operation") ;
+            System.out.println("Type Error: Non integer in greater than or equal operation") ;
             return new ErrorType() ;
         }
     }
