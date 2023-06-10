@@ -23,9 +23,15 @@ public class IdNode implements Node {
 		if (st == null)
 			errors.add(new SemanticError("Id " + id + " not declared"));
 		else {
-			if(!st.getInitialized())
+			// Se e' dichiarata nello scope corrente ma non e' inizializzata ritorno errore
+			if(ST.top_lookup(id) && !st.getInitialized()) {
 				errors.add(new SemanticError("Var " + id + " has not been initialised"));
-				stentry = st ;
+			}
+			// Se e' dichiarata in un altro scope e non e' ancora stata inizializzata -> warning
+			else if(!ST.top_lookup(id) && !st.getInitialized()) {
+				System.out.println("WARNING: var " + id + " (nestlvl: " + st.getnesting() + ") might not be initialised");
+			}
+			stentry = st ;
 		}
 
 		return errors;

@@ -32,7 +32,7 @@ public class DecNode implements Node {
 
 	@Override
 	public String codeGeneration() {
-		return "pushr A0 \n";
+		return "push 0 \n";
 	}
 
 	public String toPrint(String s) {

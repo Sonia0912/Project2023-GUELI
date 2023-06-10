@@ -63,7 +63,9 @@ public class SymbolTable {
 		STentry T = null ;
 		HashMap<String,STentry> H = symbol_table.get(n) ;
 		T = H.get(id) ;
-		return (T != null) ;
+		boolean foundInTop = (T != null) && (T.getnesting() == (n+1));
+		//this.printST();
+		return foundInTop ;
 	}
 	
 	public void insert(String id, Type type, int _nesting, String _label) {
@@ -93,11 +95,12 @@ public class SymbolTable {
 	}*/
 
 	public void printST() {
-		System.out.println("******");
+		System.out.println("****** Symbol Table ******");
 		for(int i = 0; i < symbol_table.size(); i++) {
 			symbol_table.get(i).forEach((key, value) -> System.out.println(key + ": " + value.gettype().getClass() + ", " + value.getnesting()));
+			if(i != symbol_table.size() - 1) System.out.println("-------");
 		}
-		System.out.println("******");
+		System.out.println("************************** \n");
 	}
 
 	// GETTER
