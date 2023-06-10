@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.antlr.runtime.tree.RewriteEmptyStreamException;
 import org.antlr.v4.runtime.*;
 
 import semanticanalysis.SemanticError;
@@ -17,6 +18,10 @@ import ast.Node;
 import ast.SVMVisitorImpl;
 
 public class Test {
+
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
 
 	public static void main(String[] args) throws Exception {
 
@@ -53,7 +58,7 @@ public class Test {
 
 		//SIMPLE CHECK FOR LEXER ERRORS
 		if (errorList.size() > 0){
-			System.out.println("The program was not in the right format. Exiting the compilation process now");
+			System.out.println(ANSI_RED+ "The program was not in the right format. Exiting the compilation process now"+ ANSI_RESET);
 		} else {
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
 			SimpLanParser parser = new SimpLanParser(tokens);
@@ -64,14 +69,18 @@ public class Test {
 			SymbolTable ST = new SymbolTable();	
 			ArrayList<SemanticError> errors = ast.checkSemantics(ST, 0);
 			if(errors.size() > 0 && doCheckSemantics){
-				System.out.println("You had: " + errors.size() + " errors:");
+				System.out.println(ANSI_RED+"You had: " + errors.size() + " errors:");
 				for(SemanticError e : errors)
 					System.out.println("\t" + e);
+				System.out.println(ANSI_RESET);
 			} else {
 				if(errors.size() > 0) {
-					System.out.println("You had: " + errors.size() + " warnings:");
+					System.out.println(ANSI_YELLOW+"You had: " + errors.size() + " warnings:");
 					for(SemanticError e : errors)
 						System.out.println("\t" + e);
+					System.out.println(ANSI_RESET);
+
+
 				}
 				System.out.println("Visualizing AST...");
 				System.out.println(ast.toPrint(""));

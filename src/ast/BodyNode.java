@@ -36,8 +36,10 @@ public class BodyNode implements Node{
     }
 
     public Type typeCheck () {
-        for (Node s: stm)
-            s.typeCheck();
+        for (Node s: stm){
+            if(s.typeCheck() instanceof ErrorType)
+                return new ErrorType();
+        }
         if(exp != null)
             return exp.typeCheck();
         return new VoidType();

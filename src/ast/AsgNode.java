@@ -43,6 +43,7 @@ public class AsgNode implements Node{
     public Type typeCheck() {
         // Controlliamo che il tipo sia corretto
         if (!stentry.gettype().getClass().equals(exp.typeCheck().getClass())) {
+            System.out.println("Asg: "+ id+ " doesn't match expression type ");
             return new ErrorType();
         } else {
             return exp.typeCheck();

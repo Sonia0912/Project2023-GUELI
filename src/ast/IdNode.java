@@ -29,7 +29,7 @@ public class IdNode implements Node {
 			}
 			// Se e' dichiarata in un altro scope e non e' ancora stata inizializzata -> warning
 			else if(!ST.top_lookup(id) && !st.getInitialized()) {
-				System.out.println("WARNING: var " + id + " (nestlvl: " + st.getnesting() + ") might not be initialised");
+				System.out.println("\u001B[33m" +"WARNING: var " + id + " (nestlvl: " + st.getnesting() + ") might not be initialised" +"\u001B[0m");
 			}
 			stentry = st ;
 		}
